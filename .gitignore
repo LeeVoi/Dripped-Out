@@ -1,0 +1,7 @@
+.idea/*
+bin/
+obj/
+/packages/
+riderModule.iml
+Back-Drip/obj/
+Back-Drip/bin/
