@@ -1,4 +1,4 @@
-﻿namespace DefaultNamespace;
+﻿namespace api.Controllers;
 
 public class Controller
 {
