@@ -13,7 +13,7 @@ namespace service.Services
 
         public DBConnectionService()
         {
-            var dbConfig = JsonConvert.DeserializeObject<dynamic>(File.ReadAllText("/path/to/your/dbconfig.json"));
+            var dbConfig = JsonConvert.DeserializeObject<dynamic>(File.ReadAllText("/resources/dbconfig.json"));
             serverName = dbConfig.ServerName;
             databaseName = dbConfig.DatabaseName;
             userName = dbConfig.UserName;
