@@ -19,7 +19,7 @@ namespace infrastructure.Repositories
             {
                 con.Open();
 
-                const string sql = "INSERT INTO Users(email, admin) VALUES (@email, @Admin)";
+                const string sql = "INSERT INTO Users(email, admin) VALUES (@email, @admin)";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
@@ -30,7 +30,7 @@ namespace infrastructure.Repositories
             }
         }
 
-        public Users Read(int Userid)
+        public Users Read(int userId)
         {
             
             using (var con = DBConnection.GetConnection())
@@ -41,7 +41,7 @@ namespace infrastructure.Repositories
 
              using (var command = new NpgsqlCommand(sql,con))
              {
-                 command.Parameters.AddWithValue("@UserId", Userid);
+                 command.Parameters.AddWithValue("@UserId", userId);
 
                  using (var reader = command.ExecuteReader())
                  {
@@ -49,7 +49,7 @@ namespace infrastructure.Repositories
                      {
                          return new Users
                          {
-                             UserId = reader.GetInt32(reader.GetOrdinal("userId")),
+                             UserId = reader.GetInt32(reader.GetOrdinal("userid")),
                              Email = reader.GetString(reader.GetOrdinal("email")),
                              IsAdmin = reader.GetBoolean(reader.GetOrdinal("admin"))
                          };
@@ -80,7 +80,7 @@ namespace infrastructure.Repositories
             }
         }
 
-        public void Delete(int id)
+        public void Delete(int userId)
         {
             using (var con = DBConnection.GetConnection())
             {
@@ -90,7 +90,7 @@ namespace infrastructure.Repositories
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
-                    command.Parameters.AddWithValue("@UserId", id);
+                    command.Parameters.AddWithValue("@UserId", userId);
                     command.ExecuteNonQuery();
                 }
             }

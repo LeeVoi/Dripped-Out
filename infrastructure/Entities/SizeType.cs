@@ -11,11 +11,6 @@
         public string Size { get; set; }
         
         #endregion
-
-        public SizeType(string size)
-        {
-            Size = size;
-        }
         
     }
 }
