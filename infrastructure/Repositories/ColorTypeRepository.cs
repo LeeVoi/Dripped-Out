@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using infrastructure.DatabaseManager;
+using infrastructure.DatabaseManager.Interface;
 using infrastructure.Entities;
+using infrastructure.Repositories.Interface;
 using Npgsql;
-using service.Services;
 
 namespace infrastructure.Repositories
 {
     public class ColorTypeRepository : ICrud<ColorType>
     {
 
-        private readonly DBConnection _dbConnection;
+        private readonly IDBConnection _dbConnection;
 
-        public ColorTypeRepository(DBConnection dbConnection)
+        public ColorTypeRepository(IDBConnection dbConnection)
         {
             _dbConnection = dbConnection;
         }
@@ -20,7 +22,7 @@ namespace infrastructure.Repositories
 
         public void Create(ColorType colorType)
         {
-            using (var con = DBConnection.GetConnection())
+            using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
                 const string sql = "INSERT INTO colortype(color) VALUES (@color)";
@@ -38,7 +40,7 @@ namespace infrastructure.Repositories
         {
             var colorTypes = new List<ColorType>();
 
-            using (var con = DBConnection.GetConnection())
+            using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
 
@@ -71,7 +73,7 @@ namespace infrastructure.Repositories
 
         public void Delete(int colorId)
         {
-            using (var con = DBConnection.GetConnection())
+            using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
 

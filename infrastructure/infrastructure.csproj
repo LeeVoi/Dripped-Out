@@ -35,7 +35,8 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
-      <Compile Include="DBConnection.cs" />
+      <Compile Include="DatabaseManager\DBConnection.cs" />
+      <Compile Include="DatabaseManager\Interface\IDBConnection.cs" />
       <Compile Include="Entities\ColorType.cs" />
       <Compile Include="Entities\PasswordHash.cs" />
       <Compile Include="Entities\Products.cs" />

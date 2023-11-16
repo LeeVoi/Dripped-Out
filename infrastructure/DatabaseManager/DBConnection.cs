@@ -1,9 +1,10 @@
 ﻿using System;
+using infrastructure.DatabaseManager.Interface;
 using Npgsql;
 
-namespace service.Services
+namespace infrastructure.DatabaseManager
 {
-    public class DBConnection
+    public class DBConnection : IDBConnection
     {
         public static readonly Uri Uri;
         public static readonly string ProperlyFormattedConnectionString;
@@ -34,7 +35,7 @@ namespace service.Services
                 throw new Exception("Connection string found but could not be formatted correctly!");
             }
         }
-        public static NpgsqlConnection GetConnection()
+        public NpgsqlConnection GetConnection()
         {
             return new NpgsqlConnection(ProperlyFormattedConnectionString);
         }

@@ -1,21 +1,23 @@
-﻿using infrastructure.Entities;
+﻿using infrastructure.DatabaseManager;
+using infrastructure.DatabaseManager.Interface;
+using infrastructure.Entities;
+using infrastructure.Repositories.Interface;
 using Npgsql;
-using service.Services;
 
 namespace infrastructure.Repositories
 {
     public class UserRepository : ICrud<Users>
     {
-        private readonly DBConnection _dbConnection;
+        private readonly IDBConnection _dbConnection;
         
-        public UserRepository(DBConnection dbConnection)
+        public UserRepository(IDBConnection dbConnection)
         {
             _dbConnection = dbConnection;
         }
         
         public void Create(Users user)
         {
-            using (var con = DBConnection.GetConnection())
+            using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
 
@@ -33,7 +35,7 @@ namespace infrastructure.Repositories
         public Users Read(int userId)
         {
             
-            using (var con = DBConnection.GetConnection())
+            using (var con = _dbConnection.GetConnection())
             {
              con.Open();
 
@@ -64,7 +66,7 @@ namespace infrastructure.Repositories
 
         public void Update(Users user)
         {
-            using (var con = DBConnection.GetConnection())
+            using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
 
@@ -82,7 +84,7 @@ namespace infrastructure.Repositories
 
         public void Delete(int userId)
         {
-            using (var con = DBConnection.GetConnection())
+            using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
 

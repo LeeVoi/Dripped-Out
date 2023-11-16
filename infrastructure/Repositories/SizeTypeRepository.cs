@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using infrastructure.DatabaseManager;
+using infrastructure.DatabaseManager.Interface;
 using infrastructure.Entities;
+using infrastructure.Repositories.Interface;
 using Npgsql;
-using service.Services;
-
 namespace infrastructure.Repositories
 {
     public class SizeTypeRepository : ICrud<SizeType>
     {
-        private readonly DBConnection _dbConnection;
+        private readonly IDBConnection _dbConnection;
 
-        public SizeTypeRepository(DBConnection dbConnection)
+        public SizeTypeRepository(IDBConnection dbConnection)
         {
             _dbConnection = dbConnection;
         }
 
         public void Create(SizeType sizeType)
         {
-            using (var con = DBConnection.GetConnection())
+            using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
                 const string sql = "INSERT INTO sizetype(size) VALUES (@size)";
@@ -36,7 +37,7 @@ namespace infrastructure.Repositories
         {
             var sizeTypes = new List<SizeType>();
 
-            using (var con = DBConnection.GetConnection())
+            using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
 
@@ -69,7 +70,7 @@ namespace infrastructure.Repositories
 
         public void Delete(int sizeId)
         {
-            using (var con = DBConnection.GetConnection())
+            using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
 

@@ -1,4 +1,4 @@
-﻿namespace infrastructure.Repositories
+﻿namespace infrastructure.Repositories.Interface
 {
     public interface ICrud<T>
     {
