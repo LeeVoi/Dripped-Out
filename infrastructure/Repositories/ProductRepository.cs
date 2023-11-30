@@ -20,14 +20,15 @@ namespace infrastructure.Repositories
             {
                 con.Open();
                 const string sql =
-                    "INSERT INTO product(productname, rating, price, gender) values (@productname, @rating, @price, @gender)";
+                    "INSERT INTO product(productname, typeid, price, gender, description) values (@productname, @typeid, @price, @gender, @description)";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
                     command.Parameters.AddWithValue("@productname", products.ProductName);
-                    command.Parameters.AddWithValue("@rating", products.Rating);
+                    command.Parameters.AddWithValue("@typeid",products.TypeId);
                     command.Parameters.AddWithValue("@price",products.Price);
-                   // command.Parameters.AddWithValue("@gender", products.Gender);
+                    command.Parameters.AddWithValue("@gender", products.Gender);
+                    command.Parameters.AddWithValue("@@description", products.Description);
                     command.ExecuteNonQuery();
                 }
             }
@@ -39,7 +40,7 @@ namespace infrastructure.Repositories
             {
                 con.Open();
 
-                const string sql = "SELECT * FROM Products WHERE ProductId = @Productid";
+                const string sql = "SELECT * FROM Products WHERE productid = @productid";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
@@ -54,8 +55,8 @@ namespace infrastructure.Repositories
                                 ProductId = reader.GetInt32(reader.GetOrdinal("productid")),
                                 ProductName = reader.GetString(reader.GetOrdinal("productname")),
                                 TypeId = reader.GetInt32(reader.GetOrdinal("typeid")),
-                                Rating = reader.GetInt32(reader.GetOrdinal("rating")),
-                                Price = reader.GetDecimal(reader.GetOrdinal("price"))
+                                Price = reader.GetDecimal(reader.GetOrdinal("price")),
+                                Gender = reader.GetString(reader.GetOrdinal("gender"))
                             };
                         }
                     }
@@ -72,15 +73,16 @@ namespace infrastructure.Repositories
                 con.Open();
 
                 const string sql =
-                    "UPDATE Products SET productname = @Productname, typeid = @TypeId, rating = @Rating, price = @Price WHERE productId = @ProductId";
+                    "UPDATE Products SET productname = @productname, typeid = @typeId, price = @price, gender = @gender, description = @description WHERE productid = @ProductId";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
-                    command.Parameters.AddWithValue("@ProductId", products.ProductId);
-                    command.Parameters.AddWithValue("@ProductName", products.ProductName);
-                    command.Parameters.AddWithValue("@TypeId", products.TypeId);
-                    command.Parameters.AddWithValue("@Rating", products.Rating);
-                    command.Parameters.AddWithValue("@Price", products.Price);
+                    command.Parameters.AddWithValue("@productId", products.ProductId);
+                    command.Parameters.AddWithValue("@productName", products.ProductName);
+                    command.Parameters.AddWithValue("@typeId", products.TypeId);
+                    command.Parameters.AddWithValue("@price", products.Price);
+                    command.Parameters.AddWithValue("@gender", products.Gender);
+                    command.Parameters.AddWithValue("@description", products.Description);
                     command.ExecuteNonQuery();
                 }
             }
@@ -92,7 +94,7 @@ namespace infrastructure.Repositories
             {
                 con.Open();
 
-                const string sql = "DELETE FROM Products WHERE productId = @ProductId";
+                const string sql = "DELETE FROM Products WHERE productid = @productId";
 
                 using (var command = new NpgsqlCommand())
                 {
