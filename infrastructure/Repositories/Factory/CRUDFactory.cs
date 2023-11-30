@@ -1,29 +1,53 @@
 ﻿using System;
+using System.Collections.Generic;
+using infrastructure.DatabaseManager.Interface;
+using infrastructure.Entities.Helper;
 using infrastructure.Repositories.Interface;
 
 namespace infrastructure.Repositories.Factory
 {
     public class CRUDFactory
     {
-        public static ICrud<T> GetDao<T>(RepoType daoType) where T : class
+        private Dictionary<RepoType, object> repositories;
+        private IDBConnection dbConnection;
+
+        public CRUDFactory(IDBConnection dbConnection)
         {
-            switch (daoType)
-            {
-                case DAOType.CustomerDAO:
-                    return new CustomerRepository() as ICrud<T>;
-                case DAOType.UserDAO:
-                    return new UserRepository() as ICrud<T>;
-                case DAOType.DocumentDAO:
-                    return new DocumentRepository() as ICrud<T>;
-                case DAOType.CityDAO:
-                    return new CityRepository() as ICrud<T>;
-                case DAOType.ProjectDAO:
-                    return new ProjectRepository() as ICrud<T>;
-                case DAOType.ContentDAO:
-                    return new ContentRepository() as ICrud<T>;
-                default:
-                    throw new ArgumentException("Invalid DAO type", nameof(daoType));
-            }
+            repositories = new Dictionary<RepoType, object>();
+            this.dbConnection = dbConnection;
         }
+
+        public ICrud<T> GetRepository<T>(RepoType repoType)
+        {
+            if (!repositories.ContainsKey(repoType))
+            {
+                object repoInstance;
+                switch (repoType)
+                {
+                    case RepoType.ProductRepo:
+                        repoInstance = new ProductRepository(dbConnection);
+                        break;
+                    case RepoType.UserRepo:
+                        repoInstance = new UserRepository(dbConnection);
+                        break;
+                    case RepoType.ColorMapperRepo:
+                        repoInstance = new ColorMapperRepository(dbConnection);
+                        break;
+                    case RepoType.ColorTypeRepo:
+                        repoInstance = new ColorTypeRepository(dbConnection);
+                        break;
+                    case RepoType.SizeMapperRepo:
+                        repoInstance = new SizeMapperRepository(dbConnection);
+                        break;
+                    case RepoType.SizeTypeRepo:
+                        repoInstance = new SizeTypeRepository(dbConnection);
+                        break;
+                    default:
+                        throw new ArgumentException("Invalid repository type");
+                }
+                repositories[repoType] = repoInstance;
+            }
+            return (ICrud<T>)repositories[repoType];
+        }   
     }
 }

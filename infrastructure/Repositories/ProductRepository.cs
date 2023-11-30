@@ -28,7 +28,7 @@ namespace infrastructure.Repositories
                     command.Parameters.AddWithValue("@typeid",products.TypeId);
                     command.Parameters.AddWithValue("@price",products.Price);
                     command.Parameters.AddWithValue("@gender", products.Gender);
-                    command.Parameters.AddWithValue("@@description", products.Description);
+                    command.Parameters.AddWithValue("@description", products.Description);
                     command.ExecuteNonQuery();
                 }
             }
@@ -56,7 +56,8 @@ namespace infrastructure.Repositories
                                 ProductName = reader.GetString(reader.GetOrdinal("productname")),
                                 TypeId = reader.GetInt32(reader.GetOrdinal("typeid")),
                                 Price = reader.GetDecimal(reader.GetOrdinal("price")),
-                                Gender = reader.GetString(reader.GetOrdinal("gender"))
+                                Gender = reader.GetString(reader.GetOrdinal("gender")),
+                                Description = reader.GetString(reader.GetOrdinal("description"))
                             };
                         }
                     }

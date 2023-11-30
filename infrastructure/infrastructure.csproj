@@ -38,6 +38,7 @@
       <Compile Include="DatabaseManager\DBConnection.cs" />
       <Compile Include="DatabaseManager\Interface\IDBConnection.cs" />
       <Compile Include="Entities\ColorType.cs" />
+      <Compile Include="Entities\Helper\RepoType.cs" />
       <Compile Include="Entities\PasswordHash.cs" />
       <Compile Include="Entities\Products.cs" />
       <Compile Include="Entities\ProductType.cs" />
@@ -48,6 +49,7 @@
       <Compile Include="Entities\Users.cs" />
       <Compile Include="Repositories\ColorMapperRepository.cs" />
       <Compile Include="Repositories\ColorTypeRepository.cs" />
+      <Compile Include="Repositories\Factory\CRUDFactory.cs" />
       <Compile Include="Repositories\Interface\IColorMapper.cs" />
       <Compile Include="Repositories\Interface\ICrud.cs" />
       <Compile Include="Repositories\Interface\ISizeMapper.cs" />
