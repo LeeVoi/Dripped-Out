@@ -19,19 +19,6 @@ namespace infrastructure.Entities
         
         #endregion
         
-        
-
-        
-        public Products (string productName, int typeId, int rating, decimal price)
-        {
-            
-            ProductName = productName;
-            TypeId = typeId;
-            Rating = rating;
-            Price = price;
-            
-        }
-        
         public bool IsHighlyRated()
         {
             // The product is highly rated if the rating is 4 or more
