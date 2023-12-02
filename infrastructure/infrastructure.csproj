@@ -50,6 +50,7 @@
       <Compile Include="Repositories\ColorTypeRepository.cs" />
       <Compile Include="Repositories\Interface\IColorMapper.cs" />
       <Compile Include="Repositories\Interface\ICrud.cs" />
+      <Compile Include="Repositories\Interface\IProductMapper.cs" />
       <Compile Include="Repositories\Interface\ISizeMapper.cs" />
       <Compile Include="Repositories\ProductRepository.cs" />
       <Compile Include="Repositories\SizeMapperRepository.cs" />
