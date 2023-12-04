@@ -1,10 +1,11 @@
-﻿using infrastructure.DatabaseManager.Interface;
+﻿using System.Collections.Generic;
+using infrastructure.DatabaseManager.Interface;
 using infrastructure.Entities;
 using infrastructure.Repositories.Interface;
 using Npgsql;
 namespace infrastructure.Repositories
 {
-    public class ProductRepository : ICrud<Products>
+    public class ProductRepository : ICrud<Products>, IProductMapper
     {
         public readonly IDBConnection _dbConnection;
 
@@ -103,6 +104,119 @@ namespace infrastructure.Repositories
                     command.ExecuteNonQuery();
                 }
             }
+        }
+
+        public List<Products> getProductbyType(int TypeId)
+        {
+            List<Products> productsListbyType = new List<Products>();
+            
+            using (var con = _dbConnection.GetConnection())
+            {
+                con.Open();
+
+                const string sql = "SELECT typeid from product where typeid = @TypeId";
+
+                using (var command = new NpgsqlCommand(sql, con))
+                {
+                    command.Parameters.AddWithValue("@TypeId", TypeId);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Products products = new Products()
+                            {
+                                ProductId = reader.GetInt32(reader.GetOrdinal("productid")),
+                                ProductName = reader.GetString(reader.GetOrdinal("productname")),
+                                TypeId = reader.GetInt32(reader.GetOrdinal("typeid")),
+                                Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                                Gender = reader.GetString(reader.GetOrdinal("gender")),
+                                Description = reader.GetString(reader.GetOrdinal("description"))
+                            };
+                            productsListbyType.Add(products);
+                        }
+                    }
+                }
+            }
+
+            return productsListbyType;
+        }
+
+        public List<Products> getProductbyGenderType(int TypeId, string Gender)
+        {
+            List<Products> productsListbyGenderType = new List<Products>();
+
+            using (var con = _dbConnection.GetConnection())
+            {
+                con.Open();
+
+                const string sql =
+                    "SELECT product.productid, product.productname,product.typeid, product.price, product.gender FROM product" +
+                    "inner join producttype pt on product.typeid = pt.typeid" +
+                    "WHERE product.typeid = @TypeId AND product.gender = @Gender";
+
+                using (var command = new NpgsqlCommand(sql, con))
+                {
+                    command.Parameters.AddWithValue("@TypeId", TypeId);
+                    command.Parameters.AddWithValue("@Gender", Gender);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Products products = new Products()
+                            {
+                                ProductId = reader.GetInt32(reader.GetOrdinal("productid")),
+                                ProductName = reader.GetString(reader.GetOrdinal("productname")),
+                                TypeId = reader.GetInt32(reader.GetOrdinal("typeid")),
+                                Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                                Gender = reader.GetString(reader.GetOrdinal("gender")),
+                                Description = reader.GetString(reader.GetOrdinal("description"))
+                            };
+                            productsListbyGenderType.Add(products);
+                        }
+                    }
+                }
+            }
+
+            return productsListbyGenderType;
+        }
+
+        public List<Products> getProductbyGender(string Gender)
+        {
+            List<Products> productsListbyGender = new List<Products>();
+
+            using (var con = _dbConnection.GetConnection())
+            {
+                con.Open();
+
+                const string sql =
+                    "SELECT productid, productname, product.typeid, price, gender, description FROM product" +
+                    "inner join producttype p on p.typeid = product.typeid" +
+                    "WHERE gender = @Gender";
+
+                using (var command = new NpgsqlCommand(sql, con))
+                {
+                    command.Parameters.AddWithValue("@Gender", Gender);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Products products = new Products()
+                            {
+                                ProductId = reader.GetInt32(reader.GetOrdinal("productid")),
+                                ProductName = reader.GetString(reader.GetOrdinal("productname")),
+                                TypeId = reader.GetInt32(reader.GetOrdinal("typeid")),
+                                Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                                Gender = reader.GetString(reader.GetOrdinal("gender")),
+                                Description = reader.GetString(reader.GetOrdinal("description"))
+                            };
+                            productsListbyGender.Add(products);
+                        }
+                    }
+                }
+            }
+            return productsListbyGender;
         }
     }
 }
