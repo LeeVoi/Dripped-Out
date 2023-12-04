@@ -21,6 +21,7 @@ namespace infrastructure.Entities
         
         #endregion
         
+
         
         public bool IsValidProductName()
         {

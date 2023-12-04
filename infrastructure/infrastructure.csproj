@@ -55,6 +55,7 @@
       <Compile Include="Repositories\ProductRepository.cs" />
       <Compile Include="Repositories\SizeMapperRepository.cs" />
       <Compile Include="Repositories\SizeTypeRepository.cs" />
+      <Compile Include="Repositories\UserProdRepository.cs" />
       <Compile Include="Repositories\UserRepository.cs" />
     </ItemGroup>
     <ItemGroup>
