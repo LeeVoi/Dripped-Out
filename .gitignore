@@ -1,0 +1,13 @@
+.idea/*
+bin/
+obj/
+api/bin/
+api/obj/
+infrastructure/bin/
+infrastructure/obj/
+service/bin/
+service/obj/
+/packages/
+riderModule.iml
+Back-Drip/obj/
+Back-Drip/bin/
