@@ -46,10 +46,14 @@
       <Compile Include="Entities\UserLikes.cs" />
       <Compile Include="Entities\UserReviews.cs" />
       <Compile Include="Entities\Users.cs" />
+      <Compile Include="Repositories\ColorMapperRepository.cs" />
       <Compile Include="Repositories\ColorTypeRepository.cs" />
+      <Compile Include="Repositories\Interface\IColorMapper.cs" />
       <Compile Include="Repositories\Interface\ICrud.cs" />
+      <Compile Include="Repositories\Interface\IProductMapper.cs" />
+      <Compile Include="Repositories\Interface\ISizeMapper.cs" />
       <Compile Include="Repositories\ProductRepository.cs" />
-      <Compile Include="Repositories\ProductTypeRepository.cs" />
+      <Compile Include="Repositories\SizeMapperRepository.cs" />
       <Compile Include="Repositories\SizeTypeRepository.cs" />
       <Compile Include="Repositories\UserProdRepository.cs" />
       <Compile Include="Repositories\UserRepository.cs" />

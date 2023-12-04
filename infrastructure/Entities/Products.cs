@@ -13,17 +13,15 @@ namespace infrastructure.Entities
         
         public int TypeId { get; set; }
         
-        public int Rating { get; set; }
-        
         public decimal Price { get; set; } 
+        
+        public string Gender { get; set; }
+        
+        public string Description { get; set; }
         
         #endregion
         
-        public bool IsHighlyRated()
-        {
-            // The product is highly rated if the rating is 4 or more
-            return Rating >= 4;
-        }
+
         
         public bool IsValidProductName()
         {
