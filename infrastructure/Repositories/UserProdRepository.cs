@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using infrastructure.DatabaseManager.Interface;
 using infrastructure.Entities;
+using infrastructure.Repositories.Interface;
 using Npgsql;
 
 namespace infrastructure.Repositories
 {
-    public class UserProdRepository
+    public class UserProdRepository : IUserProdMapper
     {
         private readonly IDBConnection _dbConnection;
         
@@ -15,8 +15,7 @@ namespace infrastructure.Repositories
         {
             _dbConnection = dbConnection;
         }
-
-        public List<Products> GetUserLikes (Users userid)
+        public List<Products> GetUserLikes(int UserId)
         {
             using (var con =_dbConnection.GetConnection())
             {
@@ -30,7 +29,7 @@ WHERE u.userid = @userid";
 
                 using (var command = new NpgsqlCommand(query, con))
                 {
-                    command.Parameters.AddWithValue("@userid", userid);
+                    command.Parameters.AddWithValue("@userid", UserId);
 
                     using (var reader = command.ExecuteReader())
                     {
@@ -43,7 +42,6 @@ WHERE u.userid = @userid";
                                 ProductId = reader.GetInt32(reader.GetOrdinal("ProductId")),
                                 ProductName = reader.GetString(reader.GetOrdinal("ProductName")),
                                 TypeId = reader.GetInt32(reader.GetOrdinal("TypeId")),
-                                Rating = reader.GetInt32(reader.GetOrdinal("Rating")),
                                 Price = reader.GetDecimal(reader.GetOrdinal("Price"))
                             });
                         }
@@ -55,7 +53,7 @@ WHERE u.userid = @userid";
             }
         }
 
-        public List<Products> GetUserCart(Users userid)
+        public List<Products> GetUserCart(int UserId)
         {
             using (var con =_dbConnection.GetConnection())
             {
@@ -69,7 +67,7 @@ WHERE u.userid = @userid";
 
                 using (var command = new NpgsqlCommand(query, con))
                 {
-                    command.Parameters.AddWithValue("@userid", userid);
+                    command.Parameters.AddWithValue("@userid", UserId);
 
                     using (var reader = command.ExecuteReader())
                     {
@@ -82,7 +80,6 @@ WHERE u.userid = @userid";
                                 ProductId = reader.GetInt32(reader.GetOrdinal("ProductId")),
                                 ProductName = reader.GetString(reader.GetOrdinal("ProductName")),
                                 TypeId = reader.GetInt32(reader.GetOrdinal("TypeId")),
-                                Rating = reader.GetInt32(reader.GetOrdinal("Rating")),
                                 Price = reader.GetDecimal(reader.GetOrdinal("Price"))
                             });
                         }
