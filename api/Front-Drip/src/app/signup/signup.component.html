@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div class="container">
+  <div class="overlay-div">
+    <a href="/" class="logo"></a>
+  </div>
+  <div class="center-div">
+    <h1 class="title">Sign Up</h1>
+    <label for="email">Email</label>
+    <input [formControl]="emailInput" type="email" id="email" name="email">
+    <label for="confirm-email">Confirm Email</label>
+    <input [formControl]="emailConfirmInput" type="email" id="confirm-email" name="confirm-email">
+    <label for="password">Password</label>
+    <input [formControl]="passwordInput" type="password" id="password" name="password">
+    <label for="confirm-password">Confirm Password</label>
+    <input [formControl]="passwordConfirmInput" type="password" id="confirm-password" name="confirm-password">
+    <a href="/login">Already have an account?</a>
+    <button [disabled]="formGroup.invalid" (click)="clickSubmit()" class="sign-up-button">Sign Up</button>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+body, html {
+  height: 100%;
+  margin-left: -4px;
+  padding: 0;
+}
+
+
+.background {
+  background-image: url('src/assets/background-logo.png');
+  height: 100%;
+  width: 100%;
+  margin-top: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  filter: blur(4px);
+  z-index: -1;
+}
+
+.content {
+  display: grid;
+  margin-left: 13px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 70px;
+  padding-top: 150px;
+
+  background: transparent;
+}

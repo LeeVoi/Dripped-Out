@@ -1,0 +1,19 @@
+body, html {
+  height: 100%;
+  margin-left: -4px;
+  padding: 0;
+}
+
+
+.background {
+  background-image: url('src/assets/shopping-background.png');
+  height: 100%;
+  width: 100%;
+  margin-top: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  filter: blur(4px);
+  z-index: -1;
+}

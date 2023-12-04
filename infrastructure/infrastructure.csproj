@@ -35,6 +35,7 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+
       <Compile Include="DatabaseManager\DBConnection.cs" />
       <Compile Include="DatabaseManager\Interface\IDBConnection.cs" />
       <Compile Include="Entities\ColorType.cs" />
@@ -55,6 +56,8 @@
       <Compile Include="Repositories\Interface\IProductMapper.cs" />
       <Compile Include="Repositories\Interface\ISizeMapper.cs" />
       <Compile Include="Repositories\Interface\IUserProdMapper.cs" />
+      <Compile Include="Repositories\LoginRepository.cs" />
+
       <Compile Include="Repositories\ProductRepository.cs" />
       <Compile Include="Repositories\SizeMapperRepository.cs" />
       <Compile Include="Repositories\SizeTypeRepository.cs" />
@@ -62,6 +65,7 @@
       <Compile Include="Repositories\UserRepository.cs" />
     </ItemGroup>
     <ItemGroup>
+
       <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
         <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
       </Reference>
@@ -276,6 +280,16 @@
     </Target>
     <Import Project="..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.targets" Condition="Exists('..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.targets')" />
     <Import Project="..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.targets" Condition="Exists('..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.targets')" />
+
+      <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+        <HintPath>..\packages\Dapper.2.1.24\lib\net461\Dapper.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="packages.config" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

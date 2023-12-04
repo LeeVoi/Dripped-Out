@@ -1,0 +1,66 @@
+.category-bar{
+  width: 100%;
+  height: 50px;
+  margin-top: 90px;
+  position: fixed;
+  background-color: azure;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+}
+
+.category{
+  position: relative;
+}
+.category:hover .category-button {
+  background-color: #333333;
+  color: whitesmoke;
+}
+
+.gender-bar{
+  position: absolute;
+  background-color: azure;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 40px;
+  display: none;
+  border-radius: 8px;
+  z-index: 999;
+}
+
+.category-button:hover + .gender-bar, .gender-bar:hover{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 999;
+}
+
+.gender-bar button{
+  background-color: transparent;
+  border-color: transparent;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+.gender-bar button:hover{
+  background-color: #333333;
+  color: whitesmoke;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.category-button{
+  padding-top: 20px;
+  padding-bottom: 15px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.category-button:hover{
+  background-color: #333333;
+  color: whitesmoke;
+}
