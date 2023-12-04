@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using Azure.Storage;
 using Azure.Storage.Blobs;
 
 namespace service.Services
@@ -8,26 +9,22 @@ namespace service.Services
     public class BlobService
     {
         private readonly BlobServiceClient _client;
+        private readonly string blobconnectionstring = Environment.GetEnvironmentVariable("blobconnectionstring");
 
-        public BlobService(BlobServiceClient client)
+        public BlobService()
         {
-            _client = client;
+            _client = new BlobServiceClient(blobconnectionstring);
         }
 
-        public string Save(string containerName, Stream stream, string url)
+        public static void GetBlobServiceClient(ref BlobServiceClient blobServiceClient, string accountName,
+            string accountKey)
         {
-            // Last part of url or a unique string (GUID)
-            var name = url != null ? new Uri(url).LocalPath.Split('/').Last() : Guid.NewGuid().ToString();
-            // Get object to add with container
-            var container = _client.GetBlobContainerClient(containerName);
-            // Get object to interact with the blob
-            var blob = container.GetBlobClient(name);
-            // Couldn't find a replace method, so delete if it exists
-            if (blob.Exists().Value) blob.Delete();
-            // Now upload the file stream for avatar image
-            blob.Upload(stream);
-            // Return the GUID part of the blob URI
-            return blob.Uri.GetLeftPart(UriPartial.Path);
+            StorageSharedKeyCredential sharedKeyCredential =
+                new StorageSharedKeyCredential(accountName, accountKey);
+            string blobUri = "https://" + accountName + ".blob.core.windows.net";
+
+            blobServiceClient = new BlobServiceClient(new Uri(blobUri), sharedKeyCredential);
         }
+        
     }
 }
