@@ -33,7 +33,16 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+      <Compile Include="Repositories\LoginRepository.cs" />
       <Compile Include="Repositories\ProductRepository.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+        <HintPath>..\packages\Dapper.2.1.24\lib\net461\Dapper.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="packages.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

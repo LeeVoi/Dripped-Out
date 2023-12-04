@@ -1,0 +1,97 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: -10px;
+  background-image: url("/assets/background-logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+  height: 90%;
+}
+
+.center-div, .overlay-div {
+  width: 100%;
+}
+
+.center-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 55%;
+  background-color: azure;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.overlay-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 75px;
+  background-color: #333333;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.title {
+  font-size: 22pt;
+  text-align: center;
+}
+
+.center-div input{
+  background-color: floralwhite;
+  border-color: pink;
+  border-radius: 6px;
+}
+
+
+.center-div label, .center-div input {
+  width: 60%;
+  margin: 5px 0;
+}
+
+.login-button {
+  background-color: blueviolet;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  height: 35px;
+  width: 100px;
+  border-radius: 8px;
+}
+
+.login-button:disabled{
+  background-color: pink;
+  cursor: not-allowed;
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  margin-left: -100px;
+  display: block;
+  height: 75px;
+  width: 200px;
+  background: url('/assets/dripped-out-logo.png') no-repeat center center;
+  background-size: contain;
+}

@@ -11,3 +11,5 @@ service/obj/
 riderModule.iml
 Back-Drip/obj/
 Back-Drip/bin/
+api/Front-Drip/.angular
+api/Front-Drip/node_modules
