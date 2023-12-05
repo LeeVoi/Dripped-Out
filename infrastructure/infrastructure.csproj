@@ -262,6 +262,9 @@
       <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
         <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
       </Reference>
+      <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+        <HintPath>..\packages\Dapper.2.1.24\lib\net461\Dapper.dll</HintPath>
+      </Reference>
     </ItemGroup>
     <ItemGroup>
       <None Include="App.config" />
@@ -280,11 +283,6 @@
     </Target>
     <Import Project="..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.targets" Condition="Exists('..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.targets')" />
     <Import Project="..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.targets" Condition="Exists('..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.targets')" />
-
-      <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-        <HintPath>..\packages\Dapper.2.1.24\lib\net461\Dapper.dll</HintPath>
-      </Reference>
-    </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
     </ItemGroup>

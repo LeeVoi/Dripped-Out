@@ -1,4 +1,5 @@
 using System.Text;
+using infrastructure.DatabaseManager;
 using infrastructure.Repositories;
 using service.Helpers;
 using service.Services;
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 string secret = "asdfasdfsa";//TODO RETRIEVE SECRET FROM CONFIG FILE OR USE ENV VARIABLE
 Byte[] secretBytes = Encoding.ASCII.GetBytes(secret);
 
-builder.Services.AddSingleton<DBConnectionService>();
+builder.Services.AddSingleton<DBConnection>();
 builder.Services.AddSingleton<LoginRepository>();
 builder.Services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(secretBytes));
 builder.Services.AddSingleton<LoginService>();
