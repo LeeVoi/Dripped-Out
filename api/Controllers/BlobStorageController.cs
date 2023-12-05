@@ -1,7 +1,5 @@
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
-using service.Services;
 
 namespace api.Controllers;
 
@@ -38,7 +36,7 @@ public class BlobStorageController : ControllerBase
             }
             else
             {
-                return
+                return null;
             }
         }
         

@@ -38,8 +38,6 @@
     <ItemGroup>
       <Compile Include="Helpers\AuthenticationHelper.cs" />
       <Compile Include="Services\BlobService.cs" />
-
-      <Compile Include="Services\DBConnectionService.cs" />
       <Compile Include="Services\LoginService.cs" />
 
     </ItemGroup>
@@ -195,7 +193,7 @@
       </Reference>
       <Reference Include="Microsoft.OpenApi, Version=1.2.3.0, Culture=neutral, PublicKeyToken=3f5743946376f042, processorArchitecture=MSIL">
         <HintPath>..\packages\Microsoft.OpenApi.1.2.3\lib\net46\Microsoft.OpenApi.dll</HintPath>
-
+      </Reference>
       <Reference Include="Microsoft.IdentityModel.Abstractions, Version=7.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
         <HintPath>..\packages\Microsoft.IdentityModel.Abstractions.7.0.3\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
       </Reference>
@@ -275,7 +273,7 @@
 
       <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
         <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
-
+      </Reference>
       <Reference Include="System.Security.Claims, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
         <HintPath>..\packages\System.Security.Claims.4.3.0\lib\net46\System.Security.Claims.dll</HintPath>
 
