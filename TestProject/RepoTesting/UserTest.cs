@@ -3,7 +3,7 @@ using infrastructure.Entities;
 using infrastructure.Repositories;
 using NUnit.Framework;
 
-namespace Tests.RepoTesting
+namespace TestProject.RepoTesting
 {
     [TestFixture]
     public class UserTest
@@ -43,7 +43,7 @@ namespace Tests.RepoTesting
         [Test]
         public void TestReadUser()
         {
-            const int userId = 2;
+            const int userId = 5;
 
             var readUser = userRepository.Read(userId);
 
