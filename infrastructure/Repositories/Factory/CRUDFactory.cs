@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using infrastructure.DatabaseManager.Interface;
+﻿using infrastructure.DatabaseManager.Interface;
 using infrastructure.Entities.Helper;
 using infrastructure.Repositories.Interface;
 

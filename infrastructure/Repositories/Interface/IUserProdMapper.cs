@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using infrastructure.Entities;
+﻿using infrastructure.Entities;
 
 namespace infrastructure.Repositories.Interface
 {

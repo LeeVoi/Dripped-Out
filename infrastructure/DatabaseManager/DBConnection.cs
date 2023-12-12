@@ -1,5 +1,4 @@
-﻿using System;
-using infrastructure.DatabaseManager.Interface;
+﻿using infrastructure.DatabaseManager.Interface;
 using Npgsql;
 
 namespace infrastructure.DatabaseManager
