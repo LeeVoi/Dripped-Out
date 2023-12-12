@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using infrastructure.DatabaseManager.Interface;
+﻿using infrastructure.DatabaseManager.Interface;
 using infrastructure.Entities;
 using infrastructure.Repositories.Interface;
 using Npgsql;
