@@ -104,7 +104,7 @@ public class ColorController : ControllerBase
                 _colorService.AddColorToProduct(productId, newColors);
             }
 
-            return Ok();
+            return Ok(newColors);
         }
         catch (InvalidOperationException e)
         {

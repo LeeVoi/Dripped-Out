@@ -1,36 +1,34 @@
 ﻿using infrastructure.Entities;
 using infrastructure.Entities.Helper;
-using infrastructure.Repositories;
 using infrastructure.Repositories.Factory;
 using infrastructure.Repositories.Interface;
-using Color = System.Drawing.Color;
 
 namespace service.Services;
 
 public class ColorService
 {
-    private readonly ICrud<ColorType> _colorRepository;
+    private readonly ICrud<ColorType> _colorTypeRepository;
     private readonly IColorMapper _colorMapper;
     
     public ColorService(CRUDFactory crudFactory, IColorMapper colorMapper)
     {
-        _colorRepository = crudFactory.GetRepository<ColorType>(RepoType.ColorTypeRepo);
+        _colorTypeRepository = crudFactory.GetRepository<ColorType>(RepoType.ColorTypeRepo);
         _colorMapper = colorMapper;
     }
     
-    public ColorType GetColorById(int colorid)
+    public ColorType GetColorById(int colorId)
     {
-        return _colorRepository.Read(colorid);
+        return _colorTypeRepository.Read(colorId);
     }
 
     public void CreateColor(ColorType colorType)
     {
-        _colorRepository.Create(colorType);
+        _colorTypeRepository.Create(colorType);
     }
 
     public void DeleteColor(int colorId)
     {
-        _colorRepository.Delete(colorId);
+        _colorTypeRepository.Delete(colorId);
     }
 
     // This method is from the ColorMapperRepository and it adds selected colors to the selected product

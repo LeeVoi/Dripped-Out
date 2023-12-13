@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 string secret = "asdfasdfsa";//TODO RETRIEVE SECRET FROM CONFIG FILE OR USE ENV VARIABLE
 Byte[] secretBytes = Encoding.ASCII.GetBytes(secret);
 
-builder.Services.AddSingleton<IDBConnection, DBConnection>();
+builder.Services.AddSingleton<IDBConnection ,DBConnection>();
 builder.Services.AddSingleton<CRUDFactory>();
 
 
@@ -22,13 +22,16 @@ builder.Services.AddSingleton<UserRepository>();
 builder.Services.AddSingleton<ProductRepository>();
 builder.Services.AddSingleton<UserProdRepository>();
 builder.Services.AddSingleton<IColorMapper ,ColorMapperRepository>();
+builder.Services.AddSingleton<ISizeMapper ,SizeMapperRepository>();
 builder.Services.AddSingleton<ColorTypeRepository>();
+builder.Services.AddSingleton<SizeTypeRepository>();
 
 builder.Services.AddSingleton<LoginService>();
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<UserProdService>();
 builder.Services.AddSingleton<ColorService>();
+builder.Services.AddSingleton<SizeService>();
 
 builder.Services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(secretBytes));
 builder.Services.AddControllers();

@@ -18,11 +18,11 @@ namespace infrastructure.Repositories
             using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
-                const string sql = "INSERT INTO sizetype(size) VALUES (@size)";
+                const string sql = "INSERT INTO sizetype (size) VALUES (@size)";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
-                    command.Parameters.AddWithValue("@color", sizeType.Size);
+                    command.Parameters.AddWithValue("@size", sizeType.Size);
                     command.ExecuteNonQuery();
                 }
             }
@@ -31,31 +31,28 @@ namespace infrastructure.Repositories
         //This method will READ ALL sizes in the table
         public SizeType Read(int sizeId)
         {
-            var sizeTypes = new List<SizeType>();
+            var sizeTypes = new SizeType();
 
             using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
 
-                const string sql = "SELECT * FROM sizetype";
+                const string sql = "SELECT * FROM sizetype WHERE sizeid = @sizeId";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
+                    command.Parameters.AddWithValue("@sizeId", sizeId);
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            sizeTypes.Add(new SizeType()
-                            {
-                                SizeId = reader.GetInt32(reader.GetOrdinal("sizeid")),
-                                Size = reader.GetString(reader.GetOrdinal("size")),
-                            });
+                            sizeTypes.SizeId = reader.GetInt32(reader.GetOrdinal("sizeId"));
+                            sizeTypes.Size = reader.GetString(reader.GetOrdinal("size"));
                         }
                     }
                 }
             }
-
-            return sizeTypes.FirstOrDefault();
+            return sizeTypes;
         }
         
         [Obsolete("This method is not implemented and should not be called. Please remove any references to this method in your code.",true)]
