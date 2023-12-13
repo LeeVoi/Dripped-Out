@@ -19,11 +19,13 @@ builder.Services.AddSingleton<CRUDFactory>();
 builder.Services.AddSingleton<LoginRepository>();
 builder.Services.AddSingleton<UserRepository>();
 builder.Services.AddSingleton<ProductRepository>();
+builder.Services.AddSingleton<UserProdRepository>();
 
 
 builder.Services.AddSingleton<LoginService>();
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<UserService>();
+builder.Services.AddSingleton<UserProdService>();
 
 builder.Services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(secretBytes));
 builder.Services.AddControllers();

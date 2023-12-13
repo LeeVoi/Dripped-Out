@@ -1,6 +1,41 @@
-﻿namespace api.Controllers;
+﻿using infrastructure.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using service.Services;
 
-public class UserCartController
+namespace api.Controllers;
+
+
+[Route("api/[controller]")]
+[ApiController]
+public class UserCartController : ControllerBase
 {
-    //TODO
+    private readonly UserProdService _userProdService;
+
+    public UserCartController(UserProdService userProdService)
+    {
+        _userProdService = userProdService;
+    }
+    
+    [HttpPost("/GetUserLikes")]
+    public IActionResult GetUserLikes(int userId)
+    {
+        var productsList = _userProdService.GetUserLikes(userId);
+        
+        if (productsList == null)
+        {
+            return NotFound();
+        }
+        return Ok(productsList);
+    }
+    
+    [HttpPost("/GetUserCart")]
+    public IActionResult GetUserCart(int id)
+    {
+        var productsList = _userProdService.GetUserCart(id);
+        if (productsList == null)
+        {
+            return NotFound();
+        }
+        return Ok(productsList);
+    }
 }
