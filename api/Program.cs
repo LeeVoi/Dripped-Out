@@ -3,6 +3,7 @@ using infrastructure.DatabaseManager;
 using infrastructure.DatabaseManager.Interface;
 using infrastructure.Repositories;
 using infrastructure.Repositories.Factory;
+using infrastructure.Repositories.Interface;
 using service.Helpers;
 using service.Services;
 
@@ -20,12 +21,14 @@ builder.Services.AddSingleton<LoginRepository>();
 builder.Services.AddSingleton<UserRepository>();
 builder.Services.AddSingleton<ProductRepository>();
 builder.Services.AddSingleton<UserProdRepository>();
-
+builder.Services.AddSingleton<IColorMapper ,ColorMapperRepository>();
+builder.Services.AddSingleton<ColorTypeRepository>();
 
 builder.Services.AddSingleton<LoginService>();
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<UserProdService>();
+builder.Services.AddSingleton<ColorService>();
 
 builder.Services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(secretBytes));
 builder.Services.AddControllers();

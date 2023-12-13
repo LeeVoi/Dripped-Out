@@ -30,35 +30,33 @@ namespace infrastructure.Repositories
                 }
             }
         }
-
-        //This method will READ ALL colors in the table
+        
         public ColorType Read(int colorId)
         {
-            var colorTypes = new List<ColorType>();
+            var colorType = new ColorType();
 
             using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
 
-                const string sql = "SELECT * FROM colortype";
+                const string sql = "SELECT * FROM colortype WHERE colorid = @colorId";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
+                    command.Parameters.AddWithValue("@ColorId", colorId);
+                    
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            colorTypes.Add(new ColorType()
-                            {
-                                ColorId = reader.GetInt32(reader.GetOrdinal("colorid")),
-                                Color = reader.GetString(reader.GetOrdinal("color")),
-                            });
+                            colorType.ColorId = reader.GetInt32(reader.GetOrdinal("colorId"));
+                            colorType.Color = reader.GetString(reader.GetOrdinal("color"));
                         }
                     }
                 }
             }
 
-            return colorTypes.FirstOrDefault();
+            return colorType;
         }
 
         [Obsolete("This method is not implemented and should not be called. Please remove any references to this method in your code.", true)]

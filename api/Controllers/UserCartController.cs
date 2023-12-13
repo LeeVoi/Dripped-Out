@@ -16,7 +16,7 @@ public class UserCartController : ControllerBase
         _userProdService = userProdService;
     }
     
-    [HttpPost("/GetUserLikes")]
+    [HttpGet("/GetUserLikes")]
     public IActionResult GetUserLikes(int userId)
     {
         var productsList = _userProdService.GetUserLikes(userId);
@@ -28,7 +28,7 @@ public class UserCartController : ControllerBase
         return Ok(productsList);
     }
     
-    [HttpPost("/GetUserCart")]
+    [HttpGet("/GetUserCart")]
     public IActionResult GetUserCart(int id)
     {
         var productsList = _userProdService.GetUserCart(id);

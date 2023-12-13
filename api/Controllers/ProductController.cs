@@ -14,98 +14,175 @@ public class ProductController : ControllerBase
         }
 
         [HttpGet]
-        [Route("api/Products")]
+        [Route("api/GetAllProducts")]
         public IEnumerable<Products> getAllProducts()
         {
             return _productService.getAllProducts();
         }
 
         [HttpGet]
-        [Route("/api/product/{productId}")]
+        [Route("/api/product/GetProductById")]
         public ActionResult<Products> GetProductById(int productId)
         {
-            var product = _productService.getProductById(productId);
-
-            if (product == null)
+            try
             {
-                return NotFound();
-            }
+                var product = _productService.getProductById(productId);
 
-            return Ok(product);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(product);
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPost]
-        [Route("/api/product/create")]
+        [Route("/api/product/createProduct")]
         public ActionResult CreateProduct([FromBody] Products product)
         {
-            if (product == null)
+            try
             {
-                return BadRequest("Invalid product data");
+                if (product == null)
+                {
+                    return BadRequest("Invalid product data");
+                }
+
+                _productService.createProduct(product);
+
+                return CreatedAtAction(nameof(GetProductById), new { productId = product.ProductId }, product);
             }
-
-            _productService.createProduct(product);
-
-            return CreatedAtAction(nameof(GetProductById), new { productId = product.ProductId }, product);
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPut]
-        [Route("/api/product/update/{productId}")]
+        [Route("/api/product/updateProduct")]
         public ActionResult UpdateProduct(int productId, [FromBody] Products product)
         {
-            if (product == null || productId != product.ProductId)
+            try
             {
-                return BadRequest("Invalid product data");
+                if (product == null || productId != product.ProductId)
+                {
+                    return BadRequest("Invalid product data");
+                }
+
+                var existingProduct = _productService.getProductById(productId);
+
+                if (existingProduct == null)
+                {
+                    return NotFound();
+                }
+
+                _productService.updateProduct(product);
+
+                return Ok(product);
             }
-
-            var existingProduct = _productService.getProductById(productId);
-
-            if (existingProduct == null)
+            catch (InvalidOperationException e)
             {
-                return NotFound();
+                return BadRequest(e.Message);
             }
-
-            _productService.updateProduct(product);
-
-            return Ok(product);
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete]
-        [Route("/api/product/delete/{productId}")]
+        [Route("/api/product/deleteProduct")]
         public ActionResult DeleteProduct(int productId)
         {
-            var existingProduct = _productService.getProductById(productId);
-
-            if (existingProduct == null)
+            try
             {
-                return NotFound();
+                var existingProduct = _productService.getProductById(productId);
+
+                if (existingProduct == null)
+                {
+                    return NotFound();
+                }
+
+                _productService.deleteProduct(productId);
+
+                return Ok(productId);
             }
-
-            _productService.deleteProduct(productId);
-
-            return Ok(productId);
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpGet]
-        [Route("/api/product/type/{typeId}")]
+        [Route("/api/product/type/GetProducstByTypeId")]
         public ActionResult<List<Products>> GetProductsByType(int typeId)
         {
-            var products = _productService.getProductByType(typeId);
-            return Ok(products);
+            try
+            {
+                var products = _productService.getProductByType(typeId);
+                return Ok(products);
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpGet]
-        [Route("/api/product/gender/{gender}")]
+        [Route("/api/product/gender/GetProductsByGender")]
         public ActionResult<List<Products>> GetProductsByGender(string gender)
         {
-            var products = _productService.getProductByGender(gender);
-            return Ok(products);
+            try
+            {
+                var products = _productService.getProductByGender(gender);
+                return Ok(products);
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpGet]
-        [Route("api/product/type/{typeId}/gender/{gender}")]
+        [Route("api/product/type/gender/GetProductsByGenderType")]
         public ActionResult<List<Products>> GetProductsByGenderType(int typeId, string gender)
         {
-            var products = _productService.getProductByGenderType(typeId, gender);
-            return Ok(products);
+            try
+            {
+                var products = _productService.getProductByGenderType(typeId, gender);
+                return Ok(products);
+            }
+            catch (InvalidOperationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 }
