@@ -3,6 +3,7 @@ using infrastructure.Entities.Helper;
 using infrastructure.Repositories.Factory;
 using infrastructure.Repositories.Interface;
 using Microsoft.AspNetCore.Mvc;
+using service.Services;
 
 namespace api.Controllers;
 
@@ -12,17 +13,17 @@ namespace api.Controllers;
 public class UsersController : ControllerBase
 {
     
-    private readonly ICrud<Users> _userRepository;
+    private readonly UserService _userService;
 
-    public UsersController(CRUDFactory crudFactory)
+    public UsersController(UserService userService)
     {
-        _userRepository = crudFactory.GetRepository<Users>(RepoType.UserRepo);
+        _userService = userService;
     }
 
     [HttpPost("/GetUser")]
     public IActionResult Get(int id)
     {
-        var user = _userRepository.Read(id);
+        var user = _userService.getUserById(id);
         if (user == null)
         {
             return NotFound();
@@ -39,9 +40,8 @@ public class UsersController : ControllerBase
             return BadRequest();
         }
 
-        _userRepository.Create(user);
-
-        // Instead of CreatedAtRoute, return the user directly
+        _userService.createUser(user);
+        
         return Ok(user);
     }
 
@@ -54,7 +54,7 @@ public class UsersController : ControllerBase
             return BadRequest();
         }
 
-        _userRepository.Update(user);
+        _userService.updateUser(user);
         return Ok(user);
     }
 
@@ -62,12 +62,12 @@ public class UsersController : ControllerBase
     [HttpDelete("/Delete")]
     public IActionResult Delete(int id)
     {
-        var user = _userRepository.Read(id);
+        var user = _userService.getUserById(id);
         if (user == null)
         {
             return NotFound();
         }
-        _userRepository.Delete(id);
+        _userService.deleteUser(id);
         return Ok(id);
     }
     

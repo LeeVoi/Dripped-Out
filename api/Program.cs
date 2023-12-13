@@ -14,10 +14,18 @@ Byte[] secretBytes = Encoding.ASCII.GetBytes(secret);
 
 builder.Services.AddSingleton<IDBConnection, DBConnection>();
 builder.Services.AddSingleton<CRUDFactory>();
+
+
 builder.Services.AddSingleton<LoginRepository>();
 builder.Services.AddSingleton<UserRepository>();
-builder.Services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(secretBytes));
+builder.Services.AddSingleton<ProductRepository>();
+
+
 builder.Services.AddSingleton<LoginService>();
+builder.Services.AddSingleton<ProductService>();
+builder.Services.AddSingleton<UserService>();
+
+builder.Services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(secretBytes));
 builder.Services.AddControllers();
 
 // Add services to the container.
