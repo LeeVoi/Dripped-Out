@@ -26,7 +26,17 @@ public class UserProdService
     {
         return _UserCartRepository.GetUserCart(userId);
     }
-    
-    
-    
+
+    public void AddProductToUserCart(int userId, int productId)
+    {
+        _UserCartRepository.AddProductToUserCart(userId, productId);
+    }
+
+    public void AddProductToUserLikes(int userId, int productId)
+    {
+        _UserCartRepository.AddProductToUserLikes(userId, productId);
+    }
+
+
+
 }

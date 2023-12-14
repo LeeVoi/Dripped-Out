@@ -1,4 +1,4 @@
-import {Component, inject} from "@angular/core";
+import {Component, inject, Input} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {Router} from "@angular/router";
 
@@ -11,6 +11,8 @@ import {Router} from "@angular/router";
 })
 
 export class ProductCardComponent{
+
+  @Input() product: any;
   constructor(private router: Router) {
   }
   clickProductCard(){

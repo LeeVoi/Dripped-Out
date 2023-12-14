@@ -88,5 +88,40 @@ WHERE u.userid = @userid";
                 
             }
         }
+
+        public void AddProductToUserCart(int userId, int productId)
+        {
+            using (var con = _dbConnection.GetConnection())
+            {
+                con.Open();
+                const string query = "INSERT INTO usercart (UserId, ProductId) VALUES (@userid, @productid)";
+
+                using (var commmand = new NpgsqlCommand(query, con))
+                {
+                    commmand.Parameters.AddWithValue("@userId", userId);
+                    commmand.Parameters.AddWithValue("@productid", productId);
+
+                    commmand.ExecuteNonQuery();
+                }
+            }
+        }
+        
+        public void AddProductToUserLikes(int userId, int productId)
+        {
+            using (var con = _dbConnection.GetConnection())
+            {
+                con.Open();
+
+                const string query = "INSERT INTO UserLikes (UserId, ProductId) VALUES (@userId, @productId)";
+
+                using (var command = new NpgsqlCommand(query, con))
+                {
+                    command.Parameters.AddWithValue("@userId", userId);
+                    command.Parameters.AddWithValue("@productId", productId);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

@@ -11,46 +11,9 @@
 </div>
 <div [ngStyle]="showBackground ? {'background-image': 'url(/assets/background-logo.png)', 'filter': 'blur(0px)'} : {}" class="background"></div>
 <div class="content">
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card><product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card><product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card><product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card><product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-  <product-card></product-card>
-
-
+  <div *ngFor="let product of products">
+    <product-card [products] = "products"></product-card>
+  </div>
 </div>
 <script src="home.component.ts"></script>
 </body>
