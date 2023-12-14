@@ -41,7 +41,7 @@ public class UserCartController : ControllerBase
     }
 
     [HttpPost]
-    [Route("/UserCart")]
+    [Route("AddProductToUserCart")]
     public ActionResult AddProductToUserCart([FromBody] UserCart userCart)
     {
         try
@@ -65,7 +65,7 @@ public class UserCartController : ControllerBase
     }
     
     [HttpPost]
-    [Route("UserLikes")]
+    [Route("AddProductToUserLikes")]
     public ActionResult AddProductToUserLikes([FromBody] UserLikes userLikes)
     {
         try
