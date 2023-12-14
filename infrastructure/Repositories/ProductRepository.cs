@@ -1,4 +1,5 @@
-﻿using infrastructure.DatabaseManager.Interface;
+﻿using Dapper;
+using infrastructure.DatabaseManager.Interface;
 using infrastructure.Entities;
 using infrastructure.Repositories.Interface;
 using Npgsql;
@@ -40,7 +41,7 @@ namespace infrastructure.Repositories
             {
                 con.Open();
 
-                const string sql = "SELECT * FROM Products WHERE productid = @productid";
+                const string sql = "SELECT * FROM Product WHERE productid = @productid";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
@@ -74,7 +75,7 @@ namespace infrastructure.Repositories
                 con.Open();
 
                 const string sql =
-                    "UPDATE Products SET productname = @productname, typeid = @typeId, price = @price, gender = @gender, description = @description WHERE productid = @ProductId";
+                    "UPDATE Product SET productname = @productname, typeid = @typeId, price = @price, gender = @gender, description = @description WHERE productid = @ProductId";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
@@ -95,14 +96,28 @@ namespace infrastructure.Repositories
             {
                 con.Open();
 
-                const string sql = "DELETE FROM Products WHERE productid = @productId";
+                const string sql = "DELETE FROM Product WHERE productId = @ProductId";
 
-                using (var command = new NpgsqlCommand())
+                using (var command = new NpgsqlCommand(sql , con))
                 {
                     command.Parameters.AddWithValue("@ProductId", productId);
                     command.ExecuteNonQuery();
                 }
             }
+        }
+
+        public IEnumerable<Products> getAllProducts()
+        {
+            var sql = "SELECT * FROM product";
+            var allproducts = new List<Products>();
+            using (var con = _dbConnection.GetConnection())
+            {
+                con.Open();
+
+                return  con.Query<Products>(sql);
+            }
+
+            return null;
         }
 
         public List<Products> getProductbyType(int TypeId)
@@ -113,7 +128,7 @@ namespace infrastructure.Repositories
             {
                 con.Open();
 
-                const string sql = "SELECT typeid from product where typeid = @TypeId";
+                const string sql = "SELECT * from product where typeid = @TypeId";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
@@ -127,7 +142,7 @@ namespace infrastructure.Repositories
                                 ProductId = reader.GetInt32(reader.GetOrdinal("productid")),
                                 ProductName = reader.GetString(reader.GetOrdinal("productname")),
                                 TypeId = reader.GetInt32(reader.GetOrdinal("typeid")),
-                                Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                                Price = reader.GetDecimal(reader.GetOrdinal("price")),
                                 Gender = reader.GetString(reader.GetOrdinal("gender")),
                                 Description = reader.GetString(reader.GetOrdinal("description"))
                             };
@@ -149,8 +164,9 @@ namespace infrastructure.Repositories
                 con.Open();
 
                 const string sql =
-                    "SELECT product.productid, product.productname,product.typeid, product.price, product.gender FROM product" +
-                    "inner join producttype pt on product.typeid = pt.typeid" +
+                    "SELECT product.productid, product.productname,product.typeid, product.price, product.gender, product.description " +
+                    "FROM product " +
+                    "INNER JOIN producttype pt on product.typeid = pt.typeid " +
                     "WHERE product.typeid = @TypeId AND product.gender = @Gender";
 
                 using (var command = new NpgsqlCommand(sql, con))
@@ -189,9 +205,7 @@ namespace infrastructure.Repositories
                 con.Open();
 
                 const string sql =
-                    "SELECT productid, productname, product.typeid, price, gender, description FROM product" +
-                    "inner join producttype p on p.typeid = product.typeid" +
-                    "WHERE gender = @Gender";
+                    "SELECT * FROM product WHERE gender = @Gender";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
