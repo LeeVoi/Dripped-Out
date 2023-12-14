@@ -32,6 +32,32 @@ export class SignupComponent{
     }
   }
 
+  async signup(){
+    if(this.verifyEmail() && this.verifyPassword()){
+      const email = this.formGroup.get('email')?.value;
+      const password = this.formGroup.get('password')?.value;
+
+      const response = await fetch('http://localhost:5027/registeruser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      });
+
+
+      const isSuccess = await response.text();
+      if(isSuccess === 'true'){
+        window.location.href = '/login'
+      }else{
+        console.error('Something went wrong')
+      }
+    }
+  }
+
   verifyPassword(){
     return this.passwordInput.value == this.passwordConfirmInput.value;
   }

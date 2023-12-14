@@ -1,16 +1,21 @@
 using System.Text;
 using infrastructure.DatabaseManager;
+using infrastructure.DatabaseManager.Interface;
+using infrastructure.Entities;
 using infrastructure.Repositories;
+using infrastructure.Repositories.Factory;
 using service.Helpers;
 using service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-string secret = "asdfasdfsa";//TODO RETRIEVE SECRET FROM CONFIG FILE OR USE ENV VARIABLE
-Byte[] secretBytes = Encoding.ASCII.GetBytes(secret);
+string secret = Environment.GetEnvironmentVariable("jwttokensecret");
+Byte[] secretBytes = Encoding.UTF8.GetBytes(secret);
 
-builder.Services.AddSingleton<DBConnection>();
+builder.Services.AddSingleton<IDBConnection, DBConnection>();
+builder.Services.AddSingleton<CRUDFactory>();
+builder.Services.AddSingleton<UserRepository>();
 builder.Services.AddSingleton<LoginRepository>();
 builder.Services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(secretBytes));
 builder.Services.AddSingleton<LoginService>();
@@ -38,9 +43,9 @@ app.UseCors(options =>
         .AllowCredentials();
 });
 
+
 app.UseHttpsRedirection();
 
 app.MapControllers();
-
 
 app.Run();

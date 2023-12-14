@@ -16,7 +16,7 @@
     <label for="password">Password:</label>
     <input [formControl]="passwordInput" type="password" id="password" name="password">
     <a href="/signup">Don't have an account?</a>
-    <button [disabled]="formGroup.invalid" (click)="clickSubmit()" class="login-button">Login</button>
+    <button [disabled]="formGroup.invalid" (click)="login()" class="login-button">Login</button>
   </div>
 </div>
 

@@ -20,12 +20,12 @@ namespace infrastructure.Repositories
             {
                 con.Open();
 
-                const string sql = "INSERT INTO Users(email, admin) VALUES (@email, @admin)";
+                const string sql = "INSERT INTO Users(email, isadmin) VALUES (@email, @isadmin)";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
                     command.Parameters.AddWithValue("@Email", user.Email);
-                    command.Parameters.AddWithValue("@Admin", user.IsAdmin);
+                    command.Parameters.AddWithValue("@isadmin", user.IsAdmin);
                     command.ExecuteNonQuery();
                 }
             }
@@ -52,7 +52,7 @@ namespace infrastructure.Repositories
                          {
                              UserId = reader.GetInt32(reader.GetOrdinal("userid")),
                              Email = reader.GetString(reader.GetOrdinal("email")),
-                             IsAdmin = reader.GetBoolean(reader.GetOrdinal("admin"))
+                             IsAdmin = reader.GetBoolean(reader.GetOrdinal("isadmin"))
                          };
                      }
                  }
@@ -69,13 +69,13 @@ namespace infrastructure.Repositories
             {
                 con.Open();
 
-                const string sql = "UPDATE Users SET email = @Email, admin = @Admin WHERE userId = @UserId";
+                const string sql = "UPDATE Users SET email = @Email, isadmin = @IsAdmin WHERE userId = @UserId";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
                     command.Parameters.AddWithValue("@UserId", user.UserId);
                     command.Parameters.AddWithValue("@Email", user.Email);
-                    command.Parameters.AddWithValue("@Admin", user.IsAdmin);
+                    command.Parameters.AddWithValue("@IsAdmin", user.IsAdmin);
                     command.ExecuteNonQuery();
                 }
             }
