@@ -27,7 +27,7 @@ public class UserProdService
         return _UserCartRepository.GetUserCartProducts(userId);
     }
 
-    public List<UserCart> GetUserCartDetails(int userId)
+    public List<UserCartItems> GetUserCartDetails(int userId)
     {
         return _UserCartRepository.GetUserCartDetails(userId);
     }

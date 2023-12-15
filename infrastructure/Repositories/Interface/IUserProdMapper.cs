@@ -8,7 +8,7 @@ namespace infrastructure.Repositories.Interface
         
         List<Products> GetUserCartProducts(int UserId);
 
-        List<UserCart> GetUserCartDetails(int userId);
+        List<UserCartItems> GetUserCartDetails(int userId);
 
         void AddProductToUserLikes(int userId, int productId);
         void RemoveProductFromLikes(int userId, int productId);

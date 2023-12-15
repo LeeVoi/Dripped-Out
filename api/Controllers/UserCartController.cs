@@ -73,29 +73,12 @@ public class UserCartController : ControllerBase
     {
         try
         {
-            var productsInCart = _userProdService.GetUserCartProducts(userId);
-            var userCartDetails = _userProdService.GetUserCartDetails(userId);
-
-            // Combine the information if needed
-            var combinedResult = productsInCart.Select(p => new
+            var productsList = _userProdService.GetUserCartDetails(userId);
+            if (productsList == null)
             {
-                p.ProductId,
-                p.ProductName,
-                p.TypeId,
-                p.Price,
-                UserCartDetails = userCartDetails
-                    .Where(uc => uc.ProductId == p.ProductId)
-                    .GroupBy(uc => new { uc.ColorId, uc.SizeId })
-                    .Select(group => new
-                    {
-                        ColorId = group.Key.ColorId,
-                        SizeId = group.Key.SizeId,
-                        Quantity = group.Sum(uc => uc.Quantity)
-                    })
-                    .ToList()
-            });
-
-            return Ok(combinedResult);
+                return NotFound();
+            }
+            return Ok(productsList);
         }
         catch (Exception ex)
         {

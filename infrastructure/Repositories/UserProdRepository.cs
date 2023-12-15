@@ -56,11 +56,11 @@ namespace infrastructure.Repositories
             using (var con =_dbConnection.GetConnection())
             {
                 con.Open();
-                
+        
                 const string query =
-                    "SELECT product.productid, product.productname, product.typeid, product.price FROM product " +
-                    "INNER JOIN userCart uc on product.productid = uc.productid " +
-                    "INNER JOIN users u on uc.userid = u.userid " +
+                    "SELECT p.productid, p.productname, p.typeid, p.price " +
+                    "FROM usercart u " +
+                    "JOIN product p ON u.productid = p.productid " +
                     "WHERE u.userid = @userid";
 
                 using (var command = new NpgsqlCommand(query, con))
@@ -85,19 +85,20 @@ namespace infrastructure.Repositories
                         return products;
                     }
                 }
-                
             }
         }
 
-        public List<UserCart> GetUserCartDetails(int userId)
+        public List<UserCartItems> GetUserCartDetails(int userId)
         {
             using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
 
                 const string query =
-                    "SELECT productid, colorid, sizeid, quantity FROM usercart " +
-                    "WHERE userid = @userId";
+                    "SELECT uc.productid, uc.colorid, uc.sizeid, uc.quantity, p.productname, p.price " +
+                    "FROM usercart uc " +
+                    "JOIN product p ON uc.productid = p.productid " +
+                    "WHERE uc.userid = @userId";
 
                 using (var command = new NpgsqlCommand(query, con))
                 {
@@ -105,16 +106,18 @@ namespace infrastructure.Repositories
 
                     using (var reader = command.ExecuteReader())
                     {
-                        var userCartDetails = new List<UserCart>();
+                        var userCartDetails = new List<UserCartItems>();
 
                         while (reader.Read())
                         {
-                            userCartDetails.Add(new UserCart
+                            userCartDetails.Add(new UserCartItems
                             {
                                 ProductId = reader.GetInt32(reader.GetOrdinal("ProductId")),
                                 ColorId = reader.GetInt32(reader.GetOrdinal("ColorId")),
                                 SizeId = reader.GetInt32(reader.GetOrdinal("SizeId")),
-                                Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"))
+                                Quantity = reader.GetInt32(reader.GetOrdinal("Quantity")),
+                                ProductName = reader.GetString(reader.GetOrdinal("ProductName")),
+                                Price = reader.GetDecimal(reader.GetOrdinal("Price"))
                             });
                         }
 
