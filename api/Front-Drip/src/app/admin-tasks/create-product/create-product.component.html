@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+  <label>
+    Product Name:
+    <input type="text" name="productName" ngModel>
+  </label>
+
+  <label>
+    Product Type:
+    <select name="productType" ngModel>
+      <option *ngFor="let type of productTypes" [value]="type">{{type}}</option>
+    </select>
+  </label>
+
+  <div *ngFor="let color of selectedColors; index as i">
+    <label>
+      Color {{i + 1}}:
+      <input type="text" [value]="color" readonly>
+      <input type="file" (change)="onFileChange($event, i)">
+      <button type="button" (click)="removeColor(i)">Remove</button>
+    </label>
+  </div>
+
+  <label>
+    Add Color:
+    <select #colorSelect>
+      <option *ngFor="let color of colors" [value]="color">{{color}}</option>
+    </select>
+    <button type="button" (click)="addColor(colorSelect.value)">+</button>
+  </label>
+
+  <label>
+    Price:
+    <input type="number" name="price" ngModel>
+  </label>
+
+  <label>
+    Gender:
+    <select name="gender" ngModel>
+      <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
+    </select>
+  </label>
+
+  <label>
+    Description:
+    <textarea name="description" ngModel></textarea>
+  </label>
+
+  <button type="submit">Submit</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Controls</title>
+</head>
+<body>
+<div>
+  <ng-container *ngIf="!user || user.isadmin == 'False'">
+    <p>You are not an admin. You have no right to be on this page</p>
+  </ng-container>
+  <ng-container *ngIf="user.isadmin == 'True'">
+    <div class="task-selector">
+      <div class="task-bar">
+        <a href="#" (click)="changeTask('createProduct'); $event.preventDefault()" >Create Product</a>
+        <a href="#" (click)="changeTask('deleteProduct'); $event.preventDefault()" >Delete Product</a>
+        <a href="#" (click)="changeTask('editProduct'); $event.preventDefault()" >Edit Product</a>
+        <a href="#" (click)="changeTask('deleteUser'); $event.preventDefault()" >Delete User</a>
+      </div>
+      <div class="task-content">
+        <create-product *ngIf="selectedTask === 'createProduct'"></create-product>
+        <delete-product *ngIf="selectedTask === 'deleteProduct'"></delete-product>
+        <edit-product *ngIf="selectedTask === 'editProduct'"></edit-product>
+        <delete-user *ngIf="selectedTask === 'deleteUser'"></delete-user>
+      </div>
+    </div>
+  </ng-container>
+</div>
+</body>
+</html>

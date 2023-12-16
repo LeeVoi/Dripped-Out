@@ -1,6 +1,7 @@
 import {Component, inject} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Userservice} from "../services/userservice";
 
 @Component({
   selector: 'login',
@@ -42,9 +43,9 @@ export class LoginComponent{
       //retrieve token if login successful
       const data = await response.json();
       const token = data.token;
-      console.log(token);
       //store token as "jwtToken" for attaching to future secure requests
       localStorage.setItem('jwtToken', token);
+
 
       //successful login, reroute to homepage
       window.location.href = '/';

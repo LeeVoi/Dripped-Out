@@ -1,11 +1,33 @@
 <div class="topnav">
-  <a href="/">
-    <div class="logo"></div>
-  </a>
-  <div class="topnav-right">
-    <a href="/signup">Sign Up</a>
-    <a href="/login">Log In</a>
-    <a href="/cart">Cart</a>
-  </div>
+  <ng-container *ngIf="!user">
+    <a href="/">
+      <div class="logo"></div>
+    </a>
+    <div class="topnav-right">
+      <a href="/signup">Sign Up</a>
+      <a href="/login">Log In</a>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="user && user.isadmin =='False'">
+    <a href="/">
+      <div class="logo"></div>
+    </a>
+    <div class="topnav-right">
+      <a href="/signup">Likes</a>
+      <a href="/cart">Cart</a>
+      <a href="/" (click)="logout()">Logout</a>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="user && user.isadmin == 'True'">
+    <a href="/">
+      <div class="logo"></div>
+    </a>
+    <div class="topnav-right">
+      <a href="/admincontrols">Admin Controls</a>
+      <a href="/signup">Likes</a>
+      <a href="/cart">Cart</a>
+      <a href="/" (click)="logout()">Logout</a>
+    </div>
+  </ng-container>
 </div>
 
