@@ -1,0 +1,53 @@
+﻿body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.background {
+  background-image: url('src/assets/shopping-background.png');
+  height: 100%;
+  width: 100%;
+  margin-top: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  filter: blur(4px);
+  z-index: -1;
+}
+.header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+.favorites-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.favorite-item {
+  background-color: #ffffff;
+  width: 200px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.favorite-item:hover {
+  transform: scale(1.05);
+}
+
+.item-image {
+  width: 100%;
+  height: auto;
+}
+
+.item-details {
+  padding: 10px;
+  text-align: center;
+}
