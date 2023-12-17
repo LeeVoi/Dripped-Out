@@ -22,16 +22,10 @@ export class HomeComponent implements OnInit{
 
   products: any[] = [];
 
-  constructor(private httpClient: HttpClient) {
-    this.fetchProducts();
+  constructor() {
 
   }
 
-  fetchProducts() {
-    this.httpClient.get<any[]>('api/Products').subscribe((data: any[]) => {
-      this.products = data;
-    });
-  }
 
   ngOnInit() {
 

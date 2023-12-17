@@ -5,6 +5,7 @@ import {LoginComponent} from "./login/login.component";
 import {CartComponent} from "./cart/cart.component";
 import {ProductDetailsPageComponent} from "./product-details-page/product-details-page.component";
 import {AdminControlsComponent} from "./admin-controls/admin-controls.component";
+import {LikesComponent} from "./likes/likes.component";
 
 const routeConfig: Routes = [
   {
@@ -40,6 +41,11 @@ const routeConfig: Routes = [
     path: 'admincontrols',
     component: AdminControlsComponent,
     title: 'Admin Controls'
+  },
+  {
+    path: 'likes',
+    component: LikesComponent,
+    title: 'User Likes'
   }
 ];
 

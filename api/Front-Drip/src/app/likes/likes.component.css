@@ -7,7 +7,7 @@
   background-image: url('src/assets/shopping-background.png');
   height: 100%;
   width: 100%;
-  margin-top: 100px;
+  margin-top: -50px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -23,8 +23,9 @@
 }
 
 .favorites-container {
+  margin-top: 150px;
+  margin-left: 19%;
   max-width: 1200px;
-  margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;

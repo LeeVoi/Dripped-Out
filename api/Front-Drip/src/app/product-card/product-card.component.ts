@@ -1,6 +1,7 @@
 import {Component, inject, Input} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {Router} from "@angular/router";
+import {Product} from "../models";
 
 @Component({
   selector: 'product-card',
@@ -12,7 +13,7 @@ import {Router} from "@angular/router";
 
 export class ProductCardComponent{
 
-  @Input() product: any;
+  @Input() product: Product | undefined;
   constructor(private router: Router) {
   }
   clickProductCard(){
