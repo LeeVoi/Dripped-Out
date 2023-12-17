@@ -1,6 +1,6 @@
 ﻿namespace infrastructure.Entities
 {
-    public enum Color
+    public enum ColorEnum
     {
         Blue,
         Black,

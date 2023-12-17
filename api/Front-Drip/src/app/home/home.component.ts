@@ -6,6 +6,7 @@ import {CategoryBarComponent} from "../category-bar/category-bar.component";
 import routes from "../routes";
 import {Router} from "@angular/router";
 import {ProductService} from "../services/productservice";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-home',
@@ -18,8 +19,18 @@ import {ProductService} from "../services/productservice";
 export class HomeComponent implements OnInit{
 
   showBackground = true;
-  constructor() {
 
+  products: any[] = [];
+
+  constructor(private httpClient: HttpClient) {
+    this.fetchProducts();
+
+  }
+
+  fetchProducts() {
+    this.httpClient.get<any[]>('api/Products').subscribe((data: any[]) => {
+      this.products = data;
+    });
   }
 
   ngOnInit() {

@@ -5,6 +5,9 @@
   <title>Title</title>
 </head>
 <body>
-  <div class="div-card" (click)="clickProductCard()"></div>
+  <div class="div-card" (click)="clickProductCard()">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+  </div>
 </body>
 </html>
