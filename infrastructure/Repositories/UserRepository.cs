@@ -24,6 +24,7 @@ namespace infrastructure.Repositories
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {
+
                     command.Parameters.AddWithValue("@email", user.Email);
                     command.Parameters.AddWithValue("@isadmin", user.IsAdmin);
                     command.ExecuteNonQuery();

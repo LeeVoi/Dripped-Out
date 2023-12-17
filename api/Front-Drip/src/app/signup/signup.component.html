@@ -20,7 +20,7 @@
     <label for="confirm-password">Confirm Password</label>
     <input [formControl]="passwordConfirmInput" type="password" id="confirm-password" name="confirm-password">
     <a href="/login">Already have an account?</a>
-    <button [disabled]="formGroup.invalid" (click)="clickSubmit()" class="sign-up-button">Sign Up</button>
+    <button [disabled]="formGroup.invalid" (click)="signup()" class="sign-up-button">Sign Up</button>
   </div>
 </div>
 

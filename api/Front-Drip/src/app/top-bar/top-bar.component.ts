@@ -1,5 +1,6 @@
-import {Component, inject} from "@angular/core";
+import {Component, inject, OnInit} from "@angular/core";
 import {CommonModule} from "@angular/common";
+import {jwtDecode} from "jwt-decode";
 
 @Component({
   selector: 'top-bar',
@@ -10,32 +11,21 @@ import {CommonModule} from "@angular/common";
 })
 
 export class TopBarComponent{
+  user: any;
 
-  clickPants(){
 
+  ngOnInit(){
+    const token = localStorage.getItem('jwtToken')
+    if(token){
+      const decodedToken = jwtDecode(token);
+      console.log(decodedToken);
+      const expirationDate = new Date(decodedToken.exp! * 1000);
+      if(new Date() < expirationDate)
+        this.user = decodedToken;
+    }
   }
-  clickTshirt(){
 
-  }
-  clickLongSleeve(){
-
-  }
-  clickJacket(){
-
-  }
-  clickDresses(){
-
-  }
-  clickShorts(){
-
-  }
-  clickShoes(){
-
-  }
-  clickHats(){
-
-  }
-  clickJewelery(){
-    
+  logout(){
+    localStorage.removeItem('jwtToken')
   }
 }

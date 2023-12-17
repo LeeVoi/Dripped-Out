@@ -1,8 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import {Component, HostListener, inject, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ProductCardComponent} from "../product-card/product-card.component";
 import {TopBarComponent} from "../top-bar/top-bar.component";
 import {CategoryBarComponent} from "../category-bar/category-bar.component";
+import routes from "../routes";
+import {Router} from "@angular/router";
+import {ProductService} from "../services/productservice";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -13,7 +16,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrls:['./home.component.css']
 })
 
-export class HomeComponent{
+export class HomeComponent implements OnInit{
 
   showBackground = true;
 
@@ -28,6 +31,10 @@ export class HomeComponent{
     this.httpClient.get<any[]>('api/Products').subscribe((data: any[]) => {
       this.products = data;
     });
+  }
+
+  ngOnInit() {
+
   }
 
   @HostListener('window:scroll', ['$event'])

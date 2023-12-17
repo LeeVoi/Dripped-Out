@@ -1,5 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using infrastructure.Entities;
+using infrastructure.Repositories;
 using Microsoft.IdentityModel.Tokens;
 
 namespace service.Helpers
@@ -37,13 +39,17 @@ namespace service.Helpers
             return true;
         }
 
-        public string GenerateToken(int userId, string email, bool admin)
+        public string GenerateToken(Users user)
         {
+
+            var userId = user.UserId.ToString();
+            var email = user.Email;
+            var isadmin = user.IsAdmin.ToString();
             var claims = new List<Claim>
             {
-                new Claim("id", userId.ToString()),
+                new Claim("id", userId),
                 new Claim("email", email),
-                new Claim("admin", admin.ToString())
+                new Claim("isadmin", isadmin)
             };
 
             var token = new JwtSecurityToken(
