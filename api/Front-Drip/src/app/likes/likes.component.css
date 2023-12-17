@@ -3,7 +3,18 @@
   margin: 0;
   padding: 0;
 }
-
+.background {
+  background-image: url('src/assets/shopping-background.png');
+  height: 100%;
+  width: 100%;
+  margin-top: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: fixed;
+  filter: blur(4px);
+  z-index: -1;
+}
 .header {
   background-color: #333;
   color: #fff;
@@ -20,6 +31,7 @@
 }
 
 .favorite-item {
+  background-color: #ffffff;
   width: 200px;
   margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
