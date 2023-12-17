@@ -1,10 +1,11 @@
-import { Component, HostListener, inject } from '@angular/core';
+import {Component, HostListener, inject, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ProductCardComponent} from "../product-card/product-card.component";
 import {TopBarComponent} from "../top-bar/top-bar.component";
 import {CategoryBarComponent} from "../category-bar/category-bar.component";
 import routes from "../routes";
 import {Router} from "@angular/router";
+import {ProductService} from "../services/productservice";
 
 @Component({
   selector: 'app-home',
@@ -14,10 +15,14 @@ import {Router} from "@angular/router";
   styleUrls:['./home.component.css']
 })
 
-export class HomeComponent{
+export class HomeComponent implements OnInit{
 
   showBackground = true;
   constructor() {
+
+  }
+
+  ngOnInit() {
 
   }
 

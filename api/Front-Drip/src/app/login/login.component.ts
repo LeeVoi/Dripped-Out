@@ -1,7 +1,7 @@
 import {Component, inject} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Userservice} from "../services/userservice";
+import {UserService} from "../services/userservice";
 
 @Component({
   selector: 'login',
