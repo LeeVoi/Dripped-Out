@@ -16,7 +16,7 @@ namespace infrastructure.Repositories
         }
 
 
-        public void Create(ColorType colorType)
+        public ColorType Create(ColorType colorType)
         {
             using (var con = _dbConnection.GetConnection())
             {
@@ -26,9 +26,21 @@ namespace infrastructure.Repositories
                 using (var command = new NpgsqlCommand(sql, con))
                 {
                     command.Parameters.AddWithValue("@color", colorType.Color);
-                    command.ExecuteNonQuery();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new ColorType
+                            {
+                                ColorId = reader.GetInt32(reader.GetOrdinal("colorId")),
+                                Color = reader.GetString(reader.GetOrdinal("color"))
+                            };
+                        }
+                    }
                 }
             }
+
+            return null;
         }
         
         public ColorType Read(int colorId)

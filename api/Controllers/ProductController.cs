@@ -6,7 +6,7 @@ namespace api.Controllers;
 
 public class ProductController : ControllerBase
 {
-            private readonly ProductService _productService;
+        private readonly ProductService _productService;
 
         public ProductController(ProductService productService)
         {
@@ -55,10 +55,9 @@ public class ProductController : ControllerBase
                 {
                     return BadRequest("Invalid product data");
                 }
+                
 
-                _productService.createProduct(product);
-
-                return CreatedAtAction(nameof(GetProductById), new { productId = product.ProductId }, product);
+                return Ok(_productService.createProduct(product));
             }
             catch (InvalidOperationException e)
             {

@@ -14,7 +14,7 @@ namespace infrastructure.Repositories
             _dbConnection = dbConnection;
         }
         
-        public void Create(Users user)
+        public Users Create(Users user)
         {
             using (var con = _dbConnection.GetConnection())
             {
@@ -28,8 +28,22 @@ namespace infrastructure.Repositories
                     command.Parameters.AddWithValue("@email", user.Email);
                     command.Parameters.AddWithValue("@isadmin", user.IsAdmin);
                     command.ExecuteNonQuery();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new Users
+                            {
+                                UserId = reader.GetInt32(reader.GetOrdinal("userid")),
+                                Email = reader.GetString(reader.GetOrdinal("email")),
+                                IsAdmin = reader.GetBoolean(reader.GetOrdinal("isadmin"))
+                            };
+                        }
+                    }
                 }
             }
+
+            return null;
         }
 
         public Users Read(int userId)

@@ -14,7 +14,7 @@ namespace infrastructure.Repositories
         {
             _dbConnection = new DBConnection();
         }
-        public void Create(PasswordHash passwordHash)
+        public PasswordHash Create(PasswordHash passwordHash)
         {
             using (var con= _dbConnection.GetConnection())
             {
@@ -28,9 +28,23 @@ namespace infrastructure.Repositories
                     command.Parameters.AddWithValue("@hash", passwordHash.Hash);
                     command.Parameters.AddWithValue("@salt", passwordHash.Salt);
                     command.Parameters.AddWithValue("@algorithm", passwordHash.Algorithm);
-                    command.ExecuteNonQuery();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new PasswordHash
+                            {
+                                UserId = reader.GetInt32(reader.GetOrdinal("userid")),
+                                Hash = (byte[])reader["hash"],
+                                Salt = (byte[])reader["salt"],
+                                Algorithm = reader.GetString(reader.GetOrdinal("algorithm"))
+                            };
+                        }
+                    }
                 }
             }
+
+            return null;
         }
 
         public PasswordHash Read(int userId)

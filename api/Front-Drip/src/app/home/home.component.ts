@@ -7,6 +7,7 @@ import routes from "../routes";
 import {Router} from "@angular/router";
 import {ProductService} from "../services/productservice";
 import {HttpClient} from "@angular/common/http";
+import {Product} from "../models";
 
 @Component({
   selector: 'app-home',
@@ -20,14 +21,17 @@ export class HomeComponent implements OnInit{
 
   showBackground = true;
 
-  products: any[] = [];
+  products: Product[] = [];
 
-  constructor() {
-
+  constructor(private productService: ProductService) {
+    this.productService.getAllProductsFromServer();
+    this.products = this.productService.getProductList();
   }
 
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.productService.getAllProductsFromServer();
+    this.products = this.productService.getProductList();
 
   }
 
@@ -46,6 +50,8 @@ export class HomeComponent implements OnInit{
 
     element.style.opacity = opacity.toString();
   }
+
+
 
 
 }

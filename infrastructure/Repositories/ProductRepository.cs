@@ -15,7 +15,7 @@ namespace infrastructure.Repositories
         }
 
 
-        public void Create(Products products)
+        public Products Create(Products products)
         {
             using (var con= _dbConnection.GetConnection())
             {
@@ -30,9 +30,26 @@ namespace infrastructure.Repositories
                     command.Parameters.AddWithValue("@price",products.Price);
                     command.Parameters.AddWithValue("@gender", products.Gender);
                     command.Parameters.AddWithValue("@description", products.Description);
-                    command.ExecuteNonQuery();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new Products
+                            {
+                                ProductId = reader.GetInt32(reader.GetOrdinal("productid")),
+                                ProductName = reader.GetString(reader.GetOrdinal("productname")),
+                                TypeId = reader.GetInt32(reader.GetOrdinal("typeid")),
+                                Price = reader.GetDecimal(reader.GetOrdinal("price")),
+                                Gender = reader.GetString(reader.GetOrdinal("gender")),
+                                Description = reader.GetString(reader.GetOrdinal("description"))
+                            };
+                        }
+                    }
                 }
             }
+
+            return null;
         }
 
         public Products Read(int productId)

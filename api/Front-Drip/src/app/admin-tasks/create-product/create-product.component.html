@@ -23,7 +23,7 @@
       Color {{i + 1}}:
       <input type="text" [value]="color" readonly>
       <input type="file" (change)="onFileChange($event, i)">
-      <button type="button" (click)="removeColor(i)">Remove</button>
+      <button type="button" (click)="removeColor(color,i)">Remove</button>
     </label>
   </div>
 
@@ -32,7 +32,7 @@
     <select #colorSelect>
       <option *ngFor="let color of colors" [value]="color">{{color}}</option>
     </select>
-    <button type="button" (click)="addColor(colorSelect.value)">+</button>
+    <button type="button" (click)="addColor(colorSelect.value, colorSelect.selectedIndex)">+</button>
   </label>
 
   <label>

@@ -13,7 +13,7 @@ namespace infrastructure.Repositories
             _dbConnection = dbConnection;
         }
 
-        public void Create(SizeType sizeType)
+        public SizeType Create(SizeType sizeType)
         {
             using (var con = _dbConnection.GetConnection())
             {
@@ -24,8 +24,21 @@ namespace infrastructure.Repositories
                 {
                     command.Parameters.AddWithValue("@size", sizeType.Size);
                     command.ExecuteNonQuery();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new SizeType
+                            {
+                                SizeId = reader.GetInt32(reader.GetOrdinal("sizeId")),
+                                Size = reader.GetString(reader.GetOrdinal("size"))
+                            };
+                        }
+                    }
                 }
             }
+
+            return null;
         }
 
         //This method will READ ALL sizes in the table

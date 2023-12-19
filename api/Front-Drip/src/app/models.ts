@@ -38,3 +38,16 @@ export interface UserLikesItem{
   userId: number;
   productId: number;
 }
+
+export interface ProductImageFile{
+  productId: number,
+  colorId: number,
+  imageFile: File
+}
+
+export interface ProductImageDto{
+  productId: number,
+  colorId: number,
+  blobUrl: string
+}
+

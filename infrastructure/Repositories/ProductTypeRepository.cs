@@ -14,7 +14,7 @@ namespace infrastructure.Repositories
             _dbConnection = dbConnection;
         }
 
-        public void Create(ProductType type)
+        public ProductType Create(ProductType type)
         {
             using (var con = _dbConnection.GetConnection())
             {
@@ -25,8 +25,21 @@ namespace infrastructure.Repositories
                 {
                     command.Parameters.AddWithValue("@type", type.Type);
                     command.ExecuteNonQuery();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new ProductType
+                            {
+                                TypeId = reader.GetInt32(reader.GetOrdinal("typeid")),
+                                Type = reader.GetString(reader.GetOrdinal("type")),
+                            };
+                        }
+                    }
                 }
             }
+
+            return null;
         }
 
         public ProductType Read(int typeId)

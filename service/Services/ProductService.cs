@@ -22,9 +22,9 @@ public class ProductService
         return _productRepository.Read(productId);
     }
 
-    public void createProduct(Products products)
+    public Products createProduct(Products products)
     {
-        _productRepository.Create(products);
+        return _productRepository.Create(products);
     }
 
     public void updateProduct(Products products)

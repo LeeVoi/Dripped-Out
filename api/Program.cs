@@ -21,6 +21,7 @@ builder.Services.AddSingleton<CRUDFactory>();
 builder.Services.AddSingleton<UserRepository>();
 builder.Services.AddSingleton<LoginRepository>();
 builder.Services.AddSingleton<UserRepository>();
+builder.Services.AddSingleton<ProductImageRepository>();
 builder.Services.AddSingleton<ProductRepository>();
 builder.Services.AddSingleton<UserProdRepository>();
 builder.Services.AddSingleton<IColorMapper ,ColorMapperRepository>();
@@ -30,10 +31,11 @@ builder.Services.AddSingleton<SizeTypeRepository>();
 
 builder.Services.AddSingleton<LoginService>();
 builder.Services.AddSingleton<ProductService>();
+builder.Services.AddSingleton<ProductImageService>();
 builder.Services.AddSingleton<UserService>();
-builder.Services.AddSingleton<UserProdService>();
 builder.Services.AddSingleton<ColorService>();
 builder.Services.AddSingleton<SizeService>();
+builder.Services.AddSingleton<BlobService>();
 
 builder.Services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(secretBytes));
 builder.Services.AddControllers();

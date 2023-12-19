@@ -11,5 +11,7 @@ namespace infrastructure.Repositories.Interface
         List<Products> getProductbyGenderType(int TypeId, string Gender);
         
         List<Products> getProductbyGender(string Gender);
+        
+        
     }
 }

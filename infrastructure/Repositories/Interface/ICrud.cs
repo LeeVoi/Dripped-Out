@@ -2,7 +2,7 @@
 {
     public interface ICrud<T>
     {
-        void Create(T item);
+        T Create(T item);
         
         T Read(int id);
         

@@ -1,6 +1,7 @@
 import {Component, inject} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule, NgForm} from "@angular/forms";
+import {ProductService} from "../../services/productservice";
 
 
 @Component({
@@ -13,23 +14,31 @@ import {FormsModule, NgForm} from "@angular/forms";
 
 export class CreateProductComponent{
   productTypes = ['Pants', 'T-Shirt', 'Long Sleeve', 'Jacket', 'Dresses', 'Shorts', 'Hats', 'Jewelery'];
-  colors = ['Red', 'Green', 'Blue'];
+  colors = ['Blue', 'Black', 'White', 'Green', 'Yellow', 'Red', 'Purple', 'Orange'];
+  colorFiles: File[] = [];
   genders = ['Male','Female'];
   selectedColors: string[] = [];
 
-  addColor(color: string) {
-    this.selectedColors.push(color);
+
+  constructor(private productService: ProductService) {
   }
 
-  removeColor(index: number) {
+  addColor(color: string, index: number) {
+    this.selectedColors.push(color);
+    this.colors.splice(index, 1)
+  }
+
+  removeColor(color: string, index: number) {
     this.selectedColors.splice(index, 1);
+    this.colorFiles.splice(index, 1);
+    this.colors.push(color)
   }
 
   onFileChange(event: any, index: number) {
-    // Handle file change
+    this.colorFiles[index] = event.target.file[0];
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
+    this.productService
   }
 }

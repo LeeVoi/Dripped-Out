@@ -9,6 +9,7 @@ public class BlobStorageController : ControllerBase
     [HttpPost("/uploadfile")]
     public async Task<IActionResult> UploadImage(IFormFile file)
     {
+        string blobUri = string.Empty;
         BlobServiceClient blobServiceClient =
             new BlobServiceClient(Environment.GetEnvironmentVariable("blobconnectionstring"));
         BlobContainerClient blobContainerClient = blobServiceClient.GetBlobContainerClient("products");
@@ -17,8 +18,9 @@ public class BlobStorageController : ControllerBase
         {
             BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
             await blobClient.UploadAsync(stream, true);
+            blobUri = blobClient.Uri.ToString();
         }
-        return Ok();
+        return Ok(blobUri);
     }
 
     [HttpGet("/getimage")]
