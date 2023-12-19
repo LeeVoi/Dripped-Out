@@ -15,7 +15,7 @@ string secret = Environment.GetEnvironmentVariable("jwttokensecret");
 Byte[] secretBytes = Encoding.UTF8.GetBytes(secret);
 
 
-builder.Services.AddSingleton<IDBConnection, DBConnection>();
+builder.Services.AddSingleton<DBConnection>();
 builder.Services.AddSingleton<CRUDFactory>();
 
 builder.Services.AddSingleton<UserRepository>();

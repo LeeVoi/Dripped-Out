@@ -1,16 +1,21 @@
 ﻿using infrastructure.DatabaseManager;
 using infrastructure.Entities;
+using infrastructure.Entities.Helper;
 using infrastructure.Repositories;
+using infrastructure.Repositories.Factory;
+using infrastructure.Repositories.Interface;
 
 namespace service.Services;
 
 public class ProductImageService
 {
-    private ProductImageRepository _repository;
+    private ICrud<ProductImage> _repository;
+    private IProductImageMapper _imageMapper;
     
-    public ProductImageService(ProductImageRepository repository)
+    public ProductImageService(CRUDFactory crudFactory, IProductImageMapper imageMapper)
     {
-        _repository = repository;
+        _repository = crudFactory.GetRepository<ProductImage>(RepoType.ProductImageRepo);
+        _imageMapper = imageMapper;
     }
     public ProductImage Create(ProductImage productImage)
     {
@@ -19,11 +24,11 @@ public class ProductImageService
 
     public ProductImage GetProductImage(int productId, int colorId)
     {
-        return _repository.getProductImage(productId, colorId);
+        return _imageMapper.getProductImage(productId, colorId);
     }
 
     public IEnumerable<ProductImage> GetAllProductsImages(int productId)
     {
-        return _repository.getAllProductsImages(productId);
+        return _imageMapper.getAllProductsImages(productId);
     }
 }

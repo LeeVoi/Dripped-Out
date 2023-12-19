@@ -1,4 +1,4 @@
-﻿using infrastructure.Entities;
+﻿﻿using infrastructure.Entities;
 using Microsoft.AspNetCore.Mvc;
 using service.Services;
 
@@ -6,7 +6,7 @@ namespace api.Controllers;
 
 public class ProductController : ControllerBase
 {
-        private readonly ProductService _productService;
+            private readonly ProductService _productService;
 
         public ProductController(ProductService productService)
         {
