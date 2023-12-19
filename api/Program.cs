@@ -15,13 +15,13 @@ string secret = Environment.GetEnvironmentVariable("jwttokensecret");
 Byte[] secretBytes = Encoding.UTF8.GetBytes(secret);
 
 
-builder.Services.AddSingleton<IDBConnection, DBConnection>();
+builder.Services.AddSingleton<IDBConnection ,DBConnection>();
 builder.Services.AddSingleton<CRUDFactory>();
 
 builder.Services.AddSingleton<UserRepository>();
 builder.Services.AddSingleton<LoginRepository>();
 builder.Services.AddSingleton<UserRepository>();
-builder.Services.AddSingleton<ProductImageRepository>();
+builder.Services.AddSingleton<IProductImageMapper ,ProductImageRepository>();
 builder.Services.AddSingleton<ProductRepository>();
 builder.Services.AddSingleton<UserProdRepository>();
 builder.Services.AddSingleton<IColorMapper ,ColorMapperRepository>();

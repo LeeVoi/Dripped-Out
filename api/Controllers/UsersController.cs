@@ -1,7 +1,4 @@
 ﻿using infrastructure.Entities;
-using infrastructure.Entities.Helper;
-using infrastructure.Repositories.Factory;
-using infrastructure.Repositories.Interface;
 using Microsoft.AspNetCore.Mvc;
 using service.Services;
 

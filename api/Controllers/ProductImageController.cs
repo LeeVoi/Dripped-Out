@@ -14,9 +14,9 @@ public class ProductImageController : ControllerBase
     }
 
     [HttpPost("/api/product-image-create")]
-    public void Create([FromBody]ProductImage productImage)
+    public ProductImage Create([FromBody]ProductImage productImage)
     {
-        _service.Create(productImage);
+        return _service.Create(productImage);
     }
 
     [HttpGet("/api/product-image-get")]

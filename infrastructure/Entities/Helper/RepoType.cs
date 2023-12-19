@@ -9,6 +9,7 @@
         SizeTypeRepo,
         ColorTypeRepo,
         UserProdRepo,
-        LoginRepo
+        LoginRepo,
+        ProductImageRepo
     }
 }
