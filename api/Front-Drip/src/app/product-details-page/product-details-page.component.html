@@ -10,22 +10,14 @@
 </div>
 <div class="content">
   <div class="img-container">
-    <h1>Product Name</h1>
+    <h1>{{ product?.productName }}</h1>
   <img src="assets/dripped-out-logo.png" class="main-image">
-    <span>
-      <button class="color-choice"></button>
-      <button class="color-choice"></button>
-      <button class="color-choice"></button>
-      <button class="color-choice"></button>
-      <button class="color-choice"></button>
-      <button class="color-choice"></button>
+    <span *ngFor="let productimage of productImages">
+      <product-color-button [productImage]="productimage" class="color-choice"></product-color-button>
     </span>
   </div>
   <div class="details-container">
     <label>Price:</label>
-    <label>Price</label>
-    <label>Price</label>
-    <label>Price</label>
     <label>Price</label>
   </div>
 </div>

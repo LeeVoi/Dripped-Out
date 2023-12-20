@@ -45,6 +45,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var frontEndRelativePath = "../api/Front-Drip/dist/front-drip";
+builder.Services.AddSpaStaticFiles(conf => conf.RootPath = frontEndRelativePath);
+
 
 var app = builder.Build();
 
@@ -61,6 +64,9 @@ app.UseCors(options =>
         .AllowAnyHeader()
         .AllowCredentials();
 });
+app.UseSpaStaticFiles();
+
+app.UseSpa(conf => { conf.Options.SourcePath = frontEndRelativePath; });
 
 
 app.UseHttpsRedirection();

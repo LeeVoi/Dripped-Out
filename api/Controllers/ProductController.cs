@@ -1,4 +1,6 @@
-﻿﻿using infrastructure.Entities;
+﻿﻿using System.Text;
+ using api.Authorizers;
+ using infrastructure.Entities;
 using Microsoft.AspNetCore.Mvc;
 using service.Helpers;
 using service.Services;
@@ -48,14 +50,11 @@ public class ProductController : ControllerBase
             }
         }
 
+        [AuthorizeAdmin]
         [HttpPost]
         [Route("/api/product/createProduct")]
         public ActionResult<Products> CreateProduct([FromBody] Products product)
         {
-            foreach (var header in Request.Headers)
-            {
-                Console.WriteLine($"{header.Key}: {header.Value}");
-            }
             string token = null;
 
             if(Request.Headers.ContainsKey("Authorization"))
@@ -93,10 +92,27 @@ public class ProductController : ControllerBase
             }
         }
 
+        [AuthorizeAdmin]
         [HttpPut]
         [Route("/api/product/updateProduct")]
         public ActionResult UpdateProduct(int productId, [FromBody] Products product)
         {
+            string token = null;
+
+            if(Request.Headers.ContainsKey("Authorization"))
+                token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (token == null)
+                return Unauthorized("Please log in to be authorized");
+
+            if (!_authentication.ValidateCurrentToken(token))
+                return Unauthorized("This is fishy");
+
+            var payload = _authentication.ExtractPayloadFromToken(token);
+            var isAdmin = bool.Parse(payload["isadmin"].ToString());
+
+            if (!isAdmin)
+                return Forbid("You do not have access to these controls");
             try
             {
                 if (product == null || productId != product.ProductId)
@@ -125,6 +141,7 @@ public class ProductController : ControllerBase
             }
         }
 
+        [AuthorizeAdmin]
         [HttpDelete]
         [Route("/api/product/deleteProduct")]
         public ActionResult DeleteProduct(int productId)

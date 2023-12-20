@@ -38,13 +38,9 @@ export class CreateProductComponent{
     if (event.target.files && event.target.files.length > 0) {
       this.colorFiles[index] = event.target.files[0];
     }
-    console.log(this.colorFiles)
-    console.log(this.selectedColors)
   }
 
   async onSubmit(formValues: any) {
-    console.log(formValues)
-
     const { productName: productName, productType: productType, productPrice: productPrice, productGender: productGender, productDescription: productDescription } = formValues;
     await this.productService.createNewProduct(productName, productType, this.selectedColors, this.colorFiles, productPrice, productGender, productDescription);
   }

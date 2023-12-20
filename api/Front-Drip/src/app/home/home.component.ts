@@ -24,14 +24,13 @@ export class HomeComponent implements OnInit{
   products: Product[] = [];
 
   constructor(private productService: ProductService) {
-    this.productService.getAllProductsFromServer();
-    this.products = this.productService.getProductList();
+
   }
 
 
   async ngOnInit() {
     await this.productService.getAllProductsFromServer();
-    this.products = this.productService.getProductList();
+    this.products = this.productService.products;
   }
 
   @HostListener('window:scroll', ['$event'])

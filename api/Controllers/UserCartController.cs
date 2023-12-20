@@ -1,10 +1,11 @@
+using api.Authorizers;
 using infrastructure.Entities;
 using Microsoft.AspNetCore.Mvc;
 using service.Services;
 
 namespace api.Controllers;
 
-
+[AuthorizeUserId]
 [Route("api/[controller]")]
 [ApiController]
 public class UserCartController : ControllerBase
@@ -17,8 +18,15 @@ public class UserCartController : ControllerBase
     }
     
     [HttpGet("/GetUserLikes")]
-    public IActionResult GetUserLikes(int userId)
+    public IActionResult GetUserLikes()
     {
+        var userIdString = HttpContext.Items["userId"].ToString();
+
+        int userId = 0;
+        if (userIdString != null)
+        {
+            Int32.TryParse(userIdString, out userId);
+        }
         try
         {
 
@@ -42,8 +50,15 @@ public class UserCartController : ControllerBase
     }
     
     [HttpGet("/GetUserCartProducts")]
-    public IActionResult GetUserCartProducts(int userId)
+    public IActionResult GetUserCartProducts()
     {
+        var userIdString = HttpContext.Items["userId"].ToString();
+
+        int userId = 0;
+        if (userIdString != null)
+        {
+            Int32.TryParse(userIdString, out userId);
+        }
         try
         {
 
@@ -67,8 +82,15 @@ public class UserCartController : ControllerBase
     
     [HttpGet]
     [Route("GetUserCart")]
-    public ActionResult GetUserCartDetails(int userId)
+    public ActionResult GetUserCartDetails()
     {
+        var userIdString = HttpContext.Items["userId"].ToString();
+
+        int userId = 0;
+        if (userIdString != null)
+        {
+            Int32.TryParse(userIdString, out userId);
+        }
         try
         {
             var productsList = _userProdService.GetUserCartDetails(userId);
@@ -88,14 +110,19 @@ public class UserCartController : ControllerBase
     [Route("AddProductToUserCart")]
     public ActionResult AddProductToUserCart([FromBody] UserCart userCart)
     {
+        var userIdString = HttpContext.Items["userId"].ToString();
+
+        int userId = 0;
+        if (userIdString != null)
+        {
+            Int32.TryParse(userIdString, out userId);
+        }
         try
         {
             if (userCart == null)
             {
                 return BadRequest("Invalid request data");
             }
-            
-            int userId = userCart.UserId;
             int productId = userCart.ProductId;
             int colorId = userCart.ColorId;
             int sizeId = userCart.SizeId;
@@ -117,8 +144,15 @@ public class UserCartController : ControllerBase
 
     [HttpDelete]
     [Route("RemoveProductFromCart")]
-    public IActionResult RemoveProductFromCart(int userId, int productId, int colorId, int sizeId, int quantity)
+    public IActionResult RemoveProductFromCart(int productId, int colorId, int sizeId, int quantity)
     {
+        var userIdString = HttpContext.Items["userId"].ToString();
+
+        int userId = 0;
+        if (userIdString != null)
+        {
+            Int32.TryParse(userIdString, out userId);
+        }
         try
         {
             _userProdService.RemoveProductFromCart(userId, productId, colorId, sizeId, quantity);
@@ -136,8 +170,15 @@ public class UserCartController : ControllerBase
     
     [HttpPut]
     [Route("UpdateProductQuantityInCart")]
-    public IActionResult UpdateProductQuantityInCart(int userId, int productId, int colorId, int sizeId, int newQuantity)
+    public IActionResult UpdateProductQuantityInCart(int productId, int colorId, int sizeId, int newQuantity)
     {
+        var userIdString = HttpContext.Items["userId"].ToString();
+
+        int userId = 0;
+        if (userIdString != null)
+        {
+            Int32.TryParse(userIdString, out userId);
+        }
         try
         {
             _userProdService.UpdateProductQuantity(userId, productId, colorId, sizeId, newQuantity);
@@ -157,14 +198,20 @@ public class UserCartController : ControllerBase
     [Route("AddProductToUserLikes")]
     public ActionResult AddProductToUserLikes([FromBody] UserLikes userLikes)
     {
+        var userIdString = HttpContext.Items["userId"].ToString();
+
+        int userId = 0;
+        if (userIdString != null)
+        {
+            Int32.TryParse(userIdString, out userId);
+        }
         try
         {
             if (userLikes == null)
             {
                 return BadRequest("Invalid request data");
             }
-
-            int userId = userLikes.UserId;
+            
             int productId = userLikes.ProductId;
 
             _userProdService.AddProductToUserLikes(userId, productId);
@@ -178,8 +225,15 @@ public class UserCartController : ControllerBase
     }
     [HttpDelete]
     [Route("RemoveProductFromLiked")]
-    public IActionResult RemoveProductFromLikes(int userId, int productId)
+    public IActionResult RemoveProductFromLikes(int productId)
     {
+        var userIdString = HttpContext.Items["userId"].ToString();
+
+        int userId = 0;
+        if (userIdString != null)
+        {
+            Int32.TryParse(userIdString, out userId);
+        }
         try
         {
             _userProdService.RemoveProductFromLikes(userId, productId);

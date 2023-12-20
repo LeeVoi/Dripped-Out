@@ -33,7 +33,7 @@ const routeConfig: Routes = [
   },
 
   {
-    path: 'product-details',
+    path: 'product-details/:id',
     component: ProductDetailsPageComponent,
     title: 'Product Details'
   },
