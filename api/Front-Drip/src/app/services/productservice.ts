@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {firstValueFrom, Observable} from 'rxjs';
+import {firstValueFrom, Observable, Subject} from 'rxjs';
 import {Product, ProductImageDto, ProductImageFile} from "../models";
 
 @Injectable({
@@ -10,6 +10,7 @@ export class ProductService {
 
   //List of products to be displayed
   products: Product[] = [];
+  private productsUpdated = new Subject<Product[]>();
   productImageFiles: ProductImageFile[] = [];
   // The current selected product
   currentProduct: Product | null = null;
@@ -18,12 +19,33 @@ export class ProductService {
 
   }
 
+
+  getProductUpdateListener()
+  {
+    return this.productsUpdated.asObservable();
+  }
+
   // A method to get all the products from the server
   async getAllProductsFromServer() {
     const call = this.http.get<Product[]>('http://localhost:5027/api/GetAllProducts');
     const result = await firstValueFrom<Product[]>(call);
     this.products = result;
+    this.productsUpdated.next(result);
 
+  }
+
+  async getProductByTypeId(productType: string) {
+    const typeId = this.getTypeIdFromString(productType);
+    const call = this.http.get<Product[]>(`http://localhost:5027/api/product/type/GetProducstByTypeId?typeId=${typeId}`);
+    const result = await firstValueFrom<Product[]>(call);
+    this.productsUpdated.next(result);
+  }
+
+  async getProductByGenderAndTypeId(gender: string, productType: string) {
+    const  typeId = this.getTypeIdFromString(productType);
+    const call = this.http.get<Product[]>(`http://localhost:5027/api/product/type/gender/GetProductsByGenderType?typeId=${typeId}&gender=${gender}`);
+    const result = await firstValueFrom<Product[]>(call);
+    this.productsUpdated.next(result);
   }
 
   // A method to get a product by id from the server

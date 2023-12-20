@@ -1,9 +1,9 @@
 <div class="category-bar">
   <div class="category">
-    <button class="category-button">Pants</button>
+    <button class="category-button" (click)="clickType('Pants')">Pants</button>
     <div class="gender-bar">
       <button>Male</button>
-      <button>Female</button>
+      <button (click)="clickGenderType('Female', 'Pants')">Female</button>
     </div>
   </div>
 
@@ -62,5 +62,5 @@
       <button>Female</button>
     </div>
   </div>
-  
+
 </div>
