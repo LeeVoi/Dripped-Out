@@ -1,5 +1,6 @@
 import {Component, inject} from "@angular/core";
 import {CommonModule} from "@angular/common";
+import {ProductService} from "../services/productservice";
 
 @Component({
   selector: 'category-bar',
@@ -11,31 +12,19 @@ import {CommonModule} from "@angular/common";
 
 export class CategoryBarComponent{
 
-  clickPants(){
+  constructor(private productservice : ProductService) {}
 
+  async clickType(type : string)
+  {
+    await this.productservice.getProductByTypeId(type);
+    console.log(this.productservice.products);
   }
-  clickTshirt(){
+  async clickGenderType(gender : string , type : string)
+  {
+    await this.productservice.getProductByGenderAndTypeId(gender, type);
+    console.log(this.productservice.products)
+  }
 
-  }
-  clickLongSleeve(){
 
-  }
-  clickJacket(){
-
-  }
-  clickDresses(){
-
-  }
-  clickShorts(){
-
-  }
-  clickShoes(){
-
-  }
-  clickHats(){
-
-  }
-  clickJewelery(){
-
-  }
+  protected readonly String = String;
 }

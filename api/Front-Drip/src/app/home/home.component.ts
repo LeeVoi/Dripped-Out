@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {ProductService} from "../services/productservice";
 import {HttpClient} from "@angular/common/http";
 import {Product} from "../models";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,8 @@ export class HomeComponent implements OnInit{
 
   products: Product[] = [];
 
+  private productSub : Subscription | undefined;
+
   constructor(private productService: ProductService) {
 
   }
@@ -31,6 +34,12 @@ export class HomeComponent implements OnInit{
   async ngOnInit() {
     await this.productService.getAllProductsFromServer();
     this.products = this.productService.products;
+    this.productSub = this.productService.getProductUpdateListener().subscribe((products : Product[]) => {
+      this.products = products; });
+  }
+  
+  ngOnDestroy(){
+    this.productSub?.unsubscribe();
   }
 
   @HostListener('window:scroll', ['$event'])
