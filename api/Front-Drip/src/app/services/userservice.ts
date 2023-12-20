@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import {Product, User} from "../models";
+import {firstValueFrom, Observable} from 'rxjs';
+import {Product, User, UserCartItem, UserLikesItem} from "../models";
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +15,10 @@ export class UserService {
   private currentUser: User | null = null;
 
   // A list of user cart items
-  private userCartItems: Product[] = [];
+  userCartItems: UserCartItem[] = [];
 
   // A list of user liked items
-  private userLikedItems: Product[] = [];
+  private userLikedItems: UserLikesItem[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -53,38 +53,54 @@ export class UserService {
   }
 
   // A method to add a product to the user cart
-  addToCart(product: Product): void {
-    this.userCartItems.push(product);
+  async addToCart(product: UserCartItem){
+    const call = this.http.post<any>('http://localhost:5027/api/AddProductToUserCart', { userId: this.currentUser?.userId, productId: product.productId });
+    const result= await firstValueFrom<UserCartItem>(call);
+    this.userCartItems.push(result);
   }
 
   // A method to remove a product from the user cart
-  removeFromCart(product: Product): void {
-    const index = this.userCartItems.indexOf(product);
-    if (index > -1) {
-      this.userCartItems.splice(index, 1);
+  async removeFromCart(product: UserCartItem) {
+    const call = this.http.delete<string>(`http://localhost:5027/api/UserCart/RemoveProductFromCart?productId=${product.productId} &colorId=${product.colorId} &sizeId=${product.sizeId} &quantity=${product.quantity}`)
+    const result= await firstValueFrom<string>(call);
+    if (result==='Product removed from cart successfully.'){
+      const index = this.userCartItems.indexOf(product);
+      if (index > -1) {
+        this.userCartItems.splice(index, 1);
+      }
     }
   }
 
   // A method to get the user cart items
-  getCartItems(): Product[] {
-    return this.userCartItems;
+  async getCartItems() {
+    const call = this.http.get<UserCartItem[]>(`http://localhost:5027/api/GetUserCartProducts`);
+    const result = await firstValueFrom<UserCartItem[]>(call);
+    this.userCartItems = result;
   }
 
   // A method to add a product to the user liked items
-  addToLiked(product: Product): void {
-    this.userLikedItems.push(product);
+  async addToLiked(product: UserLikesItem){
+    const call= this.http.post<any>('http://localhost:5027/api/AddProductToUserLikes', { userId: this.currentUser?.userId, productId: product.productId });
+    const result = await firstValueFrom<UserLikesItem>(call);
+    this.userLikedItems.push(result)
   }
 
   // A method to remove a product from the user liked items
-  removeFromLiked(product: Product): void {
-    const index = this.userLikedItems.indexOf(product);
-    if (index > -1) {
-      this.userLikedItems.splice(index, 1);
+  async removeFromLiked(product: UserLikesItem){
+    const call = this.http.delete<string>(`http://localhost:5027/api/UserCart/RemoveProductFromLiked?productId=${product.productId}`);
+    const result = await firstValueFrom<string>(call);
+    if (result==='Product removed from likes succesfully'){
+      const index = this.userLikedItems.indexOf(product)
+      if (index>-1){
+        this.userLikedItems.splice(index,1)
+      }
     }
   }
 
   // A method to get the user liked items
-  getLikedItems(): Product[] {
-    return this.userLikedItems;
+  async getLikedItems(): Promise<void> {
+    const call= this.http.get<UserLikesItem[]>('http://localhost:5027/api/GetUserLikes');
+    const result = await firstValueFrom<UserLikesItem[]>(call);
+    this.userLikedItems = result;
   }
 }

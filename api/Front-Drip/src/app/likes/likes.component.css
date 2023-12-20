@@ -7,6 +7,7 @@
   background-image: url('src/assets/shopping-background.png');
   height: 100%;
   width: 100%;
+  margin-left: -10px;
   margin-top: -50px;
   background-position: center;
   background-repeat: no-repeat;
@@ -24,19 +25,21 @@
 
 .favorites-container {
   margin-top: 150px;
-  margin-left: 19%;
   max-width: 1200px;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   justify-content: space-around;
 }
 
 .favorite-item {
   background-color: #ffffff;
-  width: 200px;
-  margin: 10px;
+  width: calc(33.33% - 120px);
+  margin-bottom: 20px;
+  margin-right: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
+  justify-content: space-between;
 }
 
 .favorite-item:hover {
@@ -51,4 +54,25 @@
 .item-details {
   padding: 10px;
   text-align: center;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.remove-button,
+.add-to-cart-button {
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.remove-button:hover,
+.add-to-cart-button:hover {
+  background-color: #555;
 }
