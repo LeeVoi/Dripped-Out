@@ -34,6 +34,7 @@ export class ProductService {
 
   }
 
+  // This method will get all the products in the server based on the TypeId
   async getProductByTypeId(productType: string) {
     const typeId = this.getTypeIdFromString(productType);
     const call = this.http.get<Product[]>(`http://localhost:5027/api/product/type/GetProducstByTypeId?typeId=${typeId}`);
@@ -41,6 +42,7 @@ export class ProductService {
     this.productsUpdated.next(result);
   }
 
+  // This method will get all products in the server based on Gender and TypeId
   async getProductByGenderAndTypeId(gender: string, productType: string) {
     const  typeId = this.getTypeIdFromString(productType);
     const call = this.http.get<Product[]>(`http://localhost:5027/api/product/type/gender/GetProductsByGenderType?typeId=${typeId}&gender=${gender}`);
