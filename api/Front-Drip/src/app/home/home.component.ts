@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit{
   async ngOnInit() {
     await this.productService.getAllProductsFromServer();
     this.products = this.productService.getProductList();
-
   }
 
   @HostListener('window:scroll', ['$event'])

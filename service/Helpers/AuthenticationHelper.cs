@@ -60,5 +60,36 @@ namespace service.Helpers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public bool ValidateCurrentToken(string token)
+        {
+            var mySecurityKey = new SymmetricSecurityKey(secretBytes);
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = mySecurityKey
+                }, out SecurityToken validatedToken);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+        public JwtPayload ExtractPayloadFromToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+
+            return jwtToken.Payload;
+        }
     }
 }

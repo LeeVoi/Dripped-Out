@@ -64,11 +64,15 @@ export class ProductService {
 
     for (let i = 0; i< colors.length; i++){
       //upload image and get blob uri
-      const blobCall = this.http.post<string>('http://localhost:5027/uploadfile', colorFiles[i]);
-      const blobResult = await firstValueFrom<string>(blobCall);
+      console.log(colorFiles[i])
+      let formData = new FormData();
+      formData.append('file', colorFiles[i]);
+      const blobCall = this.http.post('http://localhost:5027/uploadfile', formData, {responseType: 'text'});
+      const blobResult = await firstValueFrom(blobCall);
 
       //upload productimage to database
-      const prodImageCall = this.http.post('http://localhost:5027/api/product-image-create', {productId: productResult.productId, colorId: this.getColorIdFromString(colors[i]), blobUrl: blobResult})
+      const prodImageCall = this.http.post<ProductImageDto>('http://localhost:5027/api/product-image-create', {productId: productResult.productId, colorId: this.getColorIdFromString(colors[i]), blobUrl: blobResult});
+      const prodImageResult = await firstValueFrom<ProductImageDto>(prodImageCall);
 
       //add color to list of colorids
       colorIds.push(this.getColorIdFromString(colors[i]));
