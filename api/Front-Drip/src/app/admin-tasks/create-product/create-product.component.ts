@@ -35,10 +35,13 @@ export class CreateProductComponent{
   }
 
   onFileChange(event: any, index: number) {
-    this.colorFiles[index] = event.target.file[0];
+    if (event.target.files && event.target.files.length > 0) {
+      this.colorFiles[index] = event.target.files[0];
+    }
   }
 
-  onSubmit(form: NgForm) {
-    this.productService
+  async onSubmit(formValues: any) {
+    const { productName: productName, productType: productType, productPrice: productPrice, productGender: productGender, productDescription: productDescription } = formValues;
+    await this.productService.createNewProduct(productName, productType, this.selectedColors, this.colorFiles, productPrice, productGender, productDescription);
   }
 }

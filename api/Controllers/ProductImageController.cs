@@ -1,4 +1,5 @@
-﻿using infrastructure.Entities;
+﻿using api.Authorizers;
+using infrastructure.Entities;
 using Microsoft.AspNetCore.Mvc;
 using service.Services;
 
@@ -13,6 +14,7 @@ public class ProductImageController : ControllerBase
         _service = service;
     }
 
+    [AuthorizeAdmin]
     [HttpPost("/api/product-image-create")]
     public ProductImage Create([FromBody]ProductImage productImage)
     {

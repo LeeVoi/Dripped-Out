@@ -1,5 +1,8 @@
-﻿﻿using infrastructure.Entities;
+﻿﻿using System.Text;
+ using api.Authorizers;
+ using infrastructure.Entities;
 using Microsoft.AspNetCore.Mvc;
+using service.Helpers;
 using service.Services;
 
 namespace api.Controllers;
@@ -7,10 +10,12 @@ namespace api.Controllers;
 public class ProductController : ControllerBase
 {
             private readonly ProductService _productService;
+            private readonly AuthenticationHelper _authentication;
 
-        public ProductController(ProductService productService)
+        public ProductController(ProductService productService, AuthenticationHelper authenticationHelper)
         {
             _productService = productService;
+            _authentication = authenticationHelper;
         }
 
         [HttpGet]
@@ -45,19 +50,37 @@ public class ProductController : ControllerBase
             }
         }
 
+        [AuthorizeAdmin]
         [HttpPost]
         [Route("/api/product/createProduct")]
-        public ActionResult CreateProduct([FromBody] Products product)
+        public ActionResult<Products> CreateProduct([FromBody] Products product)
         {
+            string token = null;
+
+            if(Request.Headers.ContainsKey("Authorization"))
+                token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (token == null)
+                return Unauthorized("Please log in to be authorized");
+
+            if (!_authentication.ValidateCurrentToken(token))
+                return Unauthorized("This is fishy");
+
+            var payload = _authentication.ExtractPayloadFromToken(token);
+            var isAdmin = bool.Parse(payload["isadmin"].ToString());
+
+            if (!isAdmin)
+                return Forbid("You do not have access to these controls");
+            
             try
             {
                 if (product == null)
                 {
                     return BadRequest("Invalid product data");
                 }
-                
+                var createdproduct = _productService.createProduct(product);
 
-                return Ok(_productService.createProduct(product));
+                return Ok(createdproduct);
             }
             catch (InvalidOperationException e)
             {
@@ -69,10 +92,27 @@ public class ProductController : ControllerBase
             }
         }
 
+        [AuthorizeAdmin]
         [HttpPut]
         [Route("/api/product/updateProduct")]
         public ActionResult UpdateProduct(int productId, [FromBody] Products product)
         {
+            string token = null;
+
+            if(Request.Headers.ContainsKey("Authorization"))
+                token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            if (token == null)
+                return Unauthorized("Please log in to be authorized");
+
+            if (!_authentication.ValidateCurrentToken(token))
+                return Unauthorized("This is fishy");
+
+            var payload = _authentication.ExtractPayloadFromToken(token);
+            var isAdmin = bool.Parse(payload["isadmin"].ToString());
+
+            if (!isAdmin)
+                return Forbid("You do not have access to these controls");
             try
             {
                 if (product == null || productId != product.ProductId)
@@ -101,6 +141,7 @@ public class ProductController : ControllerBase
             }
         }
 
+        [AuthorizeAdmin]
         [HttpDelete]
         [Route("/api/product/deleteProduct")]
         public ActionResult DeleteProduct(int productId)

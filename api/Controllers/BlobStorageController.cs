@@ -1,3 +1,4 @@
+using api.Authorizers;
 using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,7 @@ namespace api.Controllers;
 [ApiController]
 public class BlobStorageController : ControllerBase
 {
+    [AuthorizeAdmin]
     [HttpPost("/uploadfile")]
     public async Task<IActionResult> UploadImage(IFormFile file)
     {

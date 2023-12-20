@@ -21,7 +21,9 @@ namespace infrastructure.Repositories
             {
                 con.Open();
                 const string sql =
-                    "INSERT INTO product(productname, typeid, price, gender, description) values (@productname, @typeid, @price, @gender, @description)";
+                    "INSERT INTO product(productname, typeid, price, gender, description) values (@productname, @typeid, @price, @gender, @description) " +
+                    "RETURNING " +
+                    "productid, productname, typeid, price, gender, description";
 
                 using (var command = new NpgsqlCommand(sql, con))
                 {

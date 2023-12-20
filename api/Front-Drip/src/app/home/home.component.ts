@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit{
     this.productSub = this.productService.getProductUpdateListener().subscribe((products : Product[]) => {
       this.products = products; });
   }
-
+  
   ngOnDestroy(){
     this.productSub?.unsubscribe();
   }

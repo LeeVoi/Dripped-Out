@@ -31,7 +31,6 @@ export class ProductService {
     const result = await firstValueFrom<Product[]>(call);
     this.products = result;
     this.productsUpdated.next(result);
-
   }
 
   // This method will get all the products in the server based on the TypeId
@@ -49,6 +48,7 @@ export class ProductService {
     const result = await firstValueFrom<Product[]>(call);
     this.productsUpdated.next(result);
   }
+
 
   // A method to get a product by id from the server
   async getProductById(id: number) {
@@ -88,11 +88,14 @@ export class ProductService {
 
     for (let i = 0; i< colors.length; i++){
       //upload image and get blob uri
-      const blobCall = this.http.post<string>('http://localhost:5027/uploadfile', colorFiles[i]);
-      const blobResult = await firstValueFrom<string>(blobCall);
+      let formData = new FormData();
+      formData.append('file', colorFiles[i]);
+      const blobCall = this.http.post('http://localhost:5027/uploadfile', formData, {responseType: 'text'});
+      const blobResult = await firstValueFrom(blobCall);
 
       //upload productimage to database
-      const prodImageCall = this.http.post('http://localhost:5027/api/product-image-create', {productId: productResult.productId, colorId: this.getColorIdFromString(colors[i]), blobUrl: blobResult})
+      const prodImageCall = this.http.post<ProductImageDto>('http://localhost:5027/api/product-image-create', {productId: productResult.productId, colorId: this.getColorIdFromString(colors[i]), blobUrl: blobResult});
+      const prodImageResult = await firstValueFrom<ProductImageDto>(prodImageCall);
 
       //add color to list of colorids
       colorIds.push(this.getColorIdFromString(colors[i]));
@@ -105,24 +108,33 @@ export class ProductService {
   async getProductImages(productId: number){
     let productImageDto: ProductImageDto[] = [];
 
+    //gets list of imageDtos which hold the blob uri to get image file
     const imageDtoCall = this.http.get<ProductImageDto[]>('http://localhost:5027/api/product-image-get-all?productId=' + productId);
     const imageDtoResult = await firstValueFrom<ProductImageDto[]>(imageDtoCall);
 
     productImageDto = imageDtoResult;
 
+    //clear all images in productImageFiles
+    for (let i = 0; i < this.productImageFiles.length; i++) {
+      this.productImageFiles.splice(i, 1);
+    }
+    //uses list of imageDtos to get images from blob storage and create productImageFiles
     for (let i = 0; i<productImageDto.length; i++){
-      const imageFileCall = this.http.get<File>('http://localhost:5027/getimage?blobUri=' + productImageDto[i].blobUrl);
-      const imageFileResult = await firstValueFrom<File>(imageFileCall);
+      const imageFileCall = this.http.get('http://localhost:5027/getimage?blobUri=' + productImageDto[i].blobUrl, { responseType: 'blob' });
+      const imageBlobResult = await firstValueFrom<Blob>(imageFileCall);
 
       let productImageFile: ProductImageFile = {
         productId: productImageDto[i].productId,
         colorId: productImageDto[i].colorId,
-        imageFile: imageFileResult
+        imageFile: new File([imageBlobResult], String(productImageDto[i].productId)) // replace 'filename' with the actual filename if available
       };
 
+      //Adds newly created imageFile to list
       this.productImageFiles.push(productImageFile);
+      console.log(this.productImageFiles)
     }
   }
+
 
   getColorIdFromString(colorType: string){
     let type: number;
