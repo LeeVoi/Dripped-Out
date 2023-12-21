@@ -11,14 +11,35 @@
 <div class="content">
   <div class="img-container">
     <h1>{{ product?.productName }}</h1>
-  <img src="assets/dripped-out-logo.png" class="main-image">
-    <span *ngFor="let productimage of productImages">
-      <product-color-button [productImage]="productimage" class="color-choice"></product-color-button>
+    <img id="myImage" class="main-image">
+    <div class="button-container">
+      <span *ngFor="let productimage of productImages, let i = index">
+      <!-- Set color based on colorId -->
+      <product-color-button [productImage]="productimage"  (click)="switchImage(i)"></product-color-button>
     </span>
+    </div>
+    <div class="size-container">
+      <button *ngFor="let productSize of productSizes; let i = index"
+              [class.selected]="selectedSizeIndex === i"
+              (click)="selectSize(i)">
+        {{productSize.size}}
+      </button>
+    </div>
+
   </div>
   <div class="details-container">
-    <label>Price:</label>
-    <label>Price</label>
+    <label>Price: ${{ product?.price }}</label>
+    <br><br>
+    <label>Description: {{ product?.description }}</label>
+    <br><br>
+    <label>
+      Quantity:
+      <select name="quantity" [(ngModel)]="selectedQuantity">
+        <option *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="number">{{number}}</option>
+      </select>
+    </label>
+    <br><br>
+    <button (click)="addToCart(product)">Add to Cart</button>
   </div>
 </div>
 </body>

@@ -20,15 +20,14 @@ export interface ProductColor{
 
 
 export interface ProductSize{
-  productId: number;
   sizeId: number;
+  size: string;
 }
 
-export interface UserCartItem{
-  userId: number;
+export interface UserCartItems {
   productId: number;
-  sizeId: number;
   colorId: number;
+  sizeId: number;
   quantity: number;
   productName: string;
   price: number;

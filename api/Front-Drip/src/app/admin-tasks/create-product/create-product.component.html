@@ -35,6 +35,17 @@
     <button type="button" (click)="addColor(colorSelect.value, colorSelect.selectedIndex)">+</button>
   </label>
 
+  <div class="size-container">
+    <div *ngFor="let size of sizes; index as i" class="checkbox-row">
+      <label>
+        <input type="checkbox" [value]="size" (change)="onSizeChange($event, i)">
+        {{size}}
+      </label>
+    </div>
+  </div>
+
+
+
   <label>
     Price:
     <input type="number" name="productPrice" ngModel>

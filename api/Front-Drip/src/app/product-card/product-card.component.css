@@ -1,8 +1,15 @@
 .div-card{
   width: 175px;
-  height: 250px;
-  background-color: aquamarine;
+  height: 270px;
+  background-color: #cccccc;
   cursor: pointer;
+  border-radius: 3px;
+}
+
+.div-card img{
+  margin-left: 12px;
+  width: 150px;
+  height: 150px;
 }
 
 .div-card:hover{

@@ -15,9 +15,11 @@ import {ProductService} from "../../services/productservice";
 export class CreateProductComponent{
   productTypes = ['Pants', 'T-Shirt', 'Long Sleeve', 'Jacket', 'Dresses', 'Shorts', 'Hats', 'Jewelery'];
   colors = ['Blue', 'Black', 'White', 'Green', 'Yellow', 'Red', 'Purple', 'Orange'];
+  sizes: string[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   colorFiles: File[] = [];
   genders = ['Male','Female'];
   selectedColors: string[] = [];
+  selectedSizes: string[] = [];
 
 
   constructor(private productService: ProductService) {
@@ -40,8 +42,19 @@ export class CreateProductComponent{
     }
   }
 
+  onSizeChange(event: any, index: number) {
+    if (event.target.checked) {
+      this.selectedSizes.push(this.sizes[index]);
+    } else {
+      const sizeIndex = this.selectedSizes.indexOf(this.sizes[index]);
+      if (sizeIndex > -1) {
+        this.selectedSizes.splice(sizeIndex, 1);
+      }
+    }
+  }
+
   async onSubmit(formValues: any) {
     const { productName: productName, productType: productType, productPrice: productPrice, productGender: productGender, productDescription: productDescription } = formValues;
-    await this.productService.createNewProduct(productName, productType, this.selectedColors, this.colorFiles, productPrice, productGender, productDescription);
+    await this.productService.createNewProduct(productName, productType, this.selectedColors, this.colorFiles, this.selectedSizes, productPrice, productGender, productDescription);
   }
 }

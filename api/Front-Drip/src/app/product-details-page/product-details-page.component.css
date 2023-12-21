@@ -46,3 +46,25 @@ body, html {
   margin-left: 10px;
   margin-top: 10px;
 }
+.button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.size-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.size-container button {
+  background-color: transparent;
+  margin: 5px;
+  /* Add other styles as needed */
+}
+
+.size-container button.selected {
+  background-color: #555555;
+}
+
