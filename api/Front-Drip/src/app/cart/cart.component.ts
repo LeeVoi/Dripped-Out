@@ -3,7 +3,7 @@ import {CommonModule} from "@angular/common";
 import {TopBarComponent} from "../top-bar/top-bar.component";
 import {CartItemComponent} from "../cart-item/cart-item.component";
 import {ProductCardComponent} from "../product-card/product-card.component";
-import {Product, UserCartItem, UserLikesItem} from "../models";
+import {Product, UserCartItems, UserLikesItem} from "../models";
 import {UserService} from "../services/userservice";
 
 
@@ -18,7 +18,8 @@ import {UserService} from "../services/userservice";
 
 export class CartComponent implements OnInit {
   showBackground: boolean = true;
-  userCartItems: UserCartItem[] = [];
+  userCartItems: UserCartItems[] = [];
+  totalPrice: number= 0;
 
   constructor(private userService: UserService) {
   }
@@ -26,16 +27,23 @@ export class CartComponent implements OnInit {
   async ngOnInit() {
     await this.userService.getCartItems();
     this.userCartItems = this.userService.userCartItems;
+    for (let i = 0; i < this.userCartItems.length; i++) {
+      this.totalPrice += this.userCartItems[i].price;
+    }
   }
 
-  async removeProduct(item: UserCartItem) {
+  async removeProduct(item: UserCartItems) {
     await this.userService.removeFromCart(item);
     await this.userService.getCartItems();
     this.userCartItems = this.userService.userCartItems;
   }
 
-  async addToFavorites(item: UserCartItem) {
-   await this.userService.addToLiked(item);
+  async addToFavorites(item: UserCartItems) {
+    let cartLike: UserLikesItem = {
+      userId: this.userService.currentUser.userId,
+      productId: item.productId
+    };
+   await this.userService.addToLiked(cartLike);
 
   }
 }

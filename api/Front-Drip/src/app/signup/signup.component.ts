@@ -1,6 +1,7 @@
 import {Component, inject} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'signup',
@@ -37,7 +38,7 @@ export class SignupComponent{
       const email = this.formGroup.get('email')?.value;
       const password = this.formGroup.get('password')?.value;
 
-      const response = await fetch('http://localhost:5027/registeruser', {
+      const response = await fetch(environment.baseUrl + '/registeruser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

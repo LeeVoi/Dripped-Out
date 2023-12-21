@@ -12,3 +12,13 @@ label {
   flex-direction: column;
   gap: 5px;
 }
+.size-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.checkbox-row {
+  margin-right: 10px;
+}
+

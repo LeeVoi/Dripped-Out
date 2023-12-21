@@ -3,7 +3,7 @@ import {TopBarComponent} from "../../top-bar/top-bar.component";
 import {Product, ProductImageFile} from "../../models";
 import {ProductService} from "../../services/productservice";
 import {ActivatedRoute} from "@angular/router";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgStyle} from "@angular/common";
 
 
 @Component({
@@ -11,7 +11,8 @@ import {NgForOf} from "@angular/common";
   standalone: true,
   imports: [
     TopBarComponent,
-    NgForOf
+    NgForOf,
+    NgStyle
   ],
   templateUrl: 'product-color-button.component.html',
   styleUrls:['product-color-button.component.css']
@@ -20,6 +21,7 @@ import {NgForOf} from "@angular/common";
 export class ProductColorButtonComponent implements OnInit{
 
   @Input() productImage: ProductImageFile | undefined;
+  @Input() ngStyle!: { 'background-color': any };
 
 
   constructor() {
@@ -29,4 +31,34 @@ export class ProductColorButtonComponent implements OnInit{
   }
 
 
+  getColor(colorId: number | undefined) {
+    let color: string | undefined;
+    switch (colorId){
+      case 1:
+        color='blue';
+        break;
+      case 2:
+        color='black';
+        break;
+      case 3:
+        color='white';
+        break;
+      case 4:
+        color='green';
+        break;
+      case 5:
+        color='yellow';
+        break;
+      case 6:
+        color='red';
+        break;
+      case 7:
+        color='purple';
+        break;
+      case 8:
+        color='orange';
+        break;
+    }
+    return color;
+  }
 }
