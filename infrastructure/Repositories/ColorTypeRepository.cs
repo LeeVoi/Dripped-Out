@@ -1,4 +1,5 @@
-﻿using infrastructure.DatabaseManager.Interface;
+﻿using Dapper;
+using infrastructure.DatabaseManager.Interface;
 using infrastructure.Entities;
 using infrastructure.Repositories.Interface;
 using Npgsql;
@@ -9,38 +10,31 @@ namespace infrastructure.Repositories
     {
 
         private readonly IDBConnection _dbConnection;
-
+        private string schema = "";
         public ColorTypeRepository(IDBConnection dbConnection)
         {
             _dbConnection = dbConnection;
+            if (Environment.GetEnvironmentVariable("IsTestMode")=="true")
+            {
+                schema = "tests.";
+            }
+            else
+            {
+                schema = "public.";
+            }
         }
 
 
         public ColorType Create(ColorType colorType)
         {
+            var color = colorType.Color;
             using (var con = _dbConnection.GetConnection())
             {
                 con.Open();
-                const string sql = "INSERT INTO colortype(color) VALUES (@color)";
+                var sql = $@"INSERT INTO " + schema + "colortype(color) VALUES (@color) RETURNING *";
 
-                using (var command = new NpgsqlCommand(sql, con))
-                {
-                    command.Parameters.AddWithValue("@color", colorType.Color);
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            return new ColorType
-                            {
-                                ColorId = reader.GetInt32(reader.GetOrdinal("colorId")),
-                                Color = reader.GetString(reader.GetOrdinal("color"))
-                            };
-                        }
-                    }
-                }
+                return con.QueryFirst<ColorType>(sql, new { color = color});
             }
-
-            return null;
         }
         
         public ColorType Read(int colorId)
