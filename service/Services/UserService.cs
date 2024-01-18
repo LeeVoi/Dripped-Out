@@ -2,10 +2,11 @@
 using infrastructure.Entities.Helper;
 using infrastructure.Repositories.Factory;
 using infrastructure.Repositories.Interface;
+using service.Services.Interface;
 
 namespace service.Services;
 
-public class UserService
+public class UserService : IUserService
 {
     private readonly ICrud<Users> _userRepository;
 

@@ -1,6 +1,6 @@
 ﻿using infrastructure.Entities;
 using Microsoft.AspNetCore.Mvc;
-using service.Services;
+using service.Services.Interface;
 
 namespace api.Controllers;
 
@@ -10,9 +10,9 @@ namespace api.Controllers;
 public class UsersController : ControllerBase
 {
     
-    private readonly UserService _userService;
+    private readonly IUserService _userService;
 
-    public UsersController(UserService userService)
+    public UsersController(IUserService userService)
     {
         _userService = userService;
     }
