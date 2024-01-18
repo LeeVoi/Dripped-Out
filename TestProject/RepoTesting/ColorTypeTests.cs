@@ -34,6 +34,26 @@ public class ColorTypeTests
             
             Assert.That(createdColor.Color, Is.EqualTo(colorType.Color));
         }
+
+        [Test]
+        public void ReadColorType()
+        {
+            var expectedBlack = "Black";
+            var expectedWhite = "White";
+            var expectedBlue = "Blue";
+
+            var shouldNotMatch = "not a color";
+
+            var retrievedBlack = _repository.Read(1);
+            var retrievedWhite = _repository.Read(2);
+            var retrievedBlue = _repository.Read(3);
+            
+            Assert.That(expectedBlack, Is.EqualTo(retrievedBlack.Color));
+            Assert.That(expectedWhite, Is.EqualTo(retrievedWhite.Color));
+            Assert.That(expectedBlue, Is.EqualTo(retrievedBlue.Color));
+            Assert.That(shouldNotMatch, Is.Not.EqualTo(retrievedBlack.Color));
+        }
+        
         [TearDown]
         public void CleanUp()
         {
