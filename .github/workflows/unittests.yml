@@ -17,7 +17,7 @@ jobs:
           node-version: 18.x.x
 
       - name: Build and run Web API + getting process ID for shutting down later
-        run: cd api && dotnet run & echo $! > api_pid.txt
+        run: cd api && dotnet run & echo "API_PID=$!" >> $GITHUB_ENV
         env:
           IsTestMode: ${{secrets.ISTESTMODE}}
           dbconnectionstring: ${{secrets.PGCONN}}
@@ -29,4 +29,4 @@ jobs:
           dbconnectionstring: ${{secrets.PGCONN}}
           
       - name: Shutdown Web API once the tests are done running
-        run: kill $(cat api_pid.txt)
+        run: if kill -0 $API_PID > /dev/null 2>&1; then kill $API_PID; fi
