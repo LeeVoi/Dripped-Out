@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
-using Moq;
-using api.Controllers;
+﻿using api.Controllers;
 using infrastructure.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
+using NUnit.Framework;
 using service.Services.Interface;
 
-namespace TestProject.ApiTesting;
+namespace TestProject.ApiTests;
 
 [TestFixture]
 public class UsersControllerTests
