@@ -5,10 +5,8 @@ using NUnit.Framework;
 
 namespace TestProject.RepoTesting;
 
-public class ColorTypeTests
-{
     [TestFixture]
-    public class UserTest
+    public class ColorTypeTests
     {
         private DBConnection _dbConnection;
         private ColorTypeRepository _repository;
@@ -60,4 +58,3 @@ public class ColorTypeTests
             Environment.SetEnvironmentVariable("IsTestMode", "false");
         }
     }
-}

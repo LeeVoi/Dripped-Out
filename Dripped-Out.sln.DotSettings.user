@@ -1,21 +1,18 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7FD8C594_002D59D3_002D40E2_002DA4C5_002DF8CFA756C2C8_002Fd_003AServices_002Ff_003ADBConnectionService_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5fcf0122_002Df0e7_002D4903_002Daa75_002D596d1dfca281/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="TestReadUser" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::DDD3600D-DBA9-415B-BBAD-CFBFCC23EDAC::net8.0::Tests.RepoTesting.UserTest.TestReadUser&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6cac14a2_002D7523_002D47ca_002D8b9f_002D9589ee31ea6f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;TestProject&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="C:\Users\abual\OneDrive\Skrivebord\Dripped-Out\TestProject" Presentation="&amp;lt;TestProject&amp;gt;" /&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a32205ef_002Dc955_002D4e3e_002Dae0c_002Df45ed8af4432/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;TestProject&amp;gt; #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.ApiTesting.UsersControllerTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a32205ef_002Dc955_002D4e3e_002Dae0c_002Df45ed8af4432/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;TestProject&amp;gt; #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a32205ef_002Dc955_002D4e3e_002Dae0c_002Df45ed8af4432/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;TestProject&amp;gt; #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.RepoTesting.ColorTypeTests+UserTest.CreateColorType&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.ApiTesting.UsersControllerTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.RepoTesting.UserTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.RepoTesting.ColorTypeTests+UserTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.RepoTesting.ColorTypeTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dc41ece4_002Da729_002D479a_002Da3be_002D5ef740b64cd0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestReadUser #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
