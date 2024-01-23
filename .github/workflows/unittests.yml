@@ -5,7 +5,7 @@ on:
       
   workflow_dispatch:
 jobs:
-  playwrighttests:
+  RepositoryTests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,9 +16,6 @@ jobs:
         with:
           node-version: 18.x.x
 
-      #- name: Install Angular program dependencies, Angular global CLI + ng build
-       # run: cd api/Front-Drip && npm i -g @angular/cli && npm i && ng build -c="development"
-
       - name: Build and run Web API + getting process ID for shutting down later
         run: cd api && dotnet run & echo "API_PID=$!" >> $GITHUB_ENV
         env:
@@ -26,7 +23,7 @@ jobs:
           dbconnectionstring: ${{secrets.PGCONN}}
 
       - name: Run tests once API is running (sleep interval set to 60 seconds)
-        run: cd Tests/unittests && sleep 60 && dotnet test
+        run: cd TestProject && sleep 60 && dotnet test --filter FullyQualifiedName~TestProject.RepoTesting
         env:
           IsTestMode: ${{secrets.ISTESTMODE}}
           dbconnectionstring: ${{secrets.PGCONN}}
