@@ -22,8 +22,8 @@ jobs:
           IsTestMode: ${{secrets.ISTESTMODE}}
           dbconnectionstring: ${{secrets.PGCONN}}
 
-      - name: Run tests once API is running (sleep interval set to 60 seconds)
-        run: cd TestProject && sleep 60 && dotnet test --filter FullyQualifiedName~TestProject.RepoTesting
+      - name: Run tests once API is running (sleep interval set to 30 seconds)
+        run: cd TestProject && sleep 30 && dotnet test --filter FullyQualifiedName~TestProject.RepoTesting
         env:
           IsTestMode: ${{secrets.ISTESTMODE}}
           dbconnectionstring: ${{secrets.PGCONN}}
