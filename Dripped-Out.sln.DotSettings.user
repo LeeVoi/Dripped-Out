@@ -14,11 +14,14 @@
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=dc41ece4_002Da729_002D479a_002Da3be_002D5ef740b64cd0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestReadUser #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.RepoTesting.UserTest.TestReadUser&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.RepoTesting.ColorTypeTests+UserTest.CreateColorType&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.RepoTesting.ColorTypeTests+UserTest.ReadColorType&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.RepoTesting.UserTest.TestReadUser&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.RepoTesting.ColorTypeTests+UserTest.CreateColorType&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::EBF041B9-CF55-4884-96A7-B5C5E51191FF::net8.0::TestProject.RepoTesting.ColorTypeTests+UserTest.ReadColorType&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;ProjectFile&gt;EBF041B9-CF55-4884-96A7-B5C5E51191FF/d:RepoTesting/f:UserTest.cs&lt;/ProjectFile&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestRunner/EnvironmentVariablesIndexed/=dbconnectionstring/@EntryIndexedValue">postgres://yypujlqw:sbbTlhMEV9fbqXAybnzH6igX7P77-KxM@flora.db.elephantsql.com/yypujlqw</s:String>
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestRunner/EnvironmentVariablesIndexed/=DOTNET_005FENVIRONMENT/@EntryIndexRemoved">True</s:Boolean>
