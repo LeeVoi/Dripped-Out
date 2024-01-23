@@ -22,10 +22,10 @@ jobs:
           dbconnectionstring: ${{secrets.PGCONN}}
 
       - name: Run tests once API is running (sleep interval set to 60 seconds)
-        run: cd TestProject && sleep 60 && dotnet test --filter FullyQualifiedName~TestProject.ApiTests
+        run: cd TestProject && sleep 30 && dotnet test --filter FullyQualifiedName~TestProject.ApiTests
 
         env:
           dbconnectionstring: ${{secrets.PGCONN}}
           
       - name: Shutdown Web API once the tests are done running
-        run: kill $API_PID
+        run: if kill -0 $API_PID > /dev/null 2>&1; then kill $API_PID; fi
