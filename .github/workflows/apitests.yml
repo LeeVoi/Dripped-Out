@@ -21,7 +21,7 @@ jobs:
         env:
           dbconnectionstring: ${{secrets.PGCONN}}
 
-      - name: Run tests once API is running (sleep interval set to 60 seconds)
+      - name: Run tests once API is running (sleep interval set to 30 seconds)
         run: cd TestProject && sleep 30 && dotnet test --filter FullyQualifiedName~TestProject.ApiTests
 
         env:
